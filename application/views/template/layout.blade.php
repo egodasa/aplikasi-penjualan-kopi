@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('template.head', ['judul' => 'Kopi'])
+@include('template.head', ['judul' => 'Koperasi Serba Usaha Solok Radja'])
 	<body>
-		<div id="top">
-		@include('template.top-bar')
-		@include('template.modal-login')
-		</div>
 		<div class="navbar navbar-default yamm" role="navigation" id="navbar">
 			<div class="container">
 		@include('template.navbar')

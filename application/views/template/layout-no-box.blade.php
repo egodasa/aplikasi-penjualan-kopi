@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('template.head', ['judul' => 'Kopi'])
+@include('template.head', ['judul' => 'Koperasi Serba Usaha Solok Radja'])
 	<body>
 		<div class="navbar navbar-default yamm" role="navigation" id="navbar">
 			<div class="container">

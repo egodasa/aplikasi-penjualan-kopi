@@ -281,7 +281,7 @@
      $waktu = explode(" ", tanggal_indo_waktu($tanggal));
      return $waktu[1]." ".$waktu[2];
   }
-  function alertBootstrap($jenis_alert = "success", $judul = "Pesan!", $isi_pesan = "Isi Pesan."){
+  function alertBootstrap($judul = "Pesan!", $isi_pesan = "Isi Pesan.", $jenis_alert = "success"){
      $icon_alert = array(
         "success" => "check",
         "warning" => "warning",
