@@ -77,6 +77,11 @@ $route['pemesanan']['GET'] = 'KelolaPemesanan/daftar';                // Lihat D
 $route['pemesanan/tambah']['POST'] = 'KelolaPemesanan/prosesTambah';  // Proses Tambah Data
 $route['pemesanan/edit']['POST'] = 'KelolaPemesanan/prosesEdit';             // Proses Edit Data
 $route['pemesanan/hapus']['GET'] = 'KelolaPemesanan/prosesHapus';     // Hapus Data
+$route['pemesanan/detail/(:num)']['GET'] = 'KelolaPemesanan/detailPemesanan/$1';     // Hapus Data
+
+$route['konfirmasi-pembayaran']['POST'] = 'KelolaPembayaran/konfirmasiPembayaran';     // Hapus Data
+$route['verifikasi-pembayaran']['POST'] = 'KelolaPembayaran/verifikasiPembayaran';     // Hapus Data
+$route['update-no-resi']['POST'] = 'KelolaPemesanan/tambahNoResi';     // Hapus Data
 
 $route['kopi/detail/(:num)']['GET'] = 'KelolaKopi/detailKopi/$1';                // Lihat Data
 $route['kopi/detail/(:num)']['POST'] = 'KelolaKopi/tambahKeranjang/$1';                // Lihat Data
@@ -85,7 +90,7 @@ $route['keranjang']['GET'] = 'KelolaKopi/keranjang';                // Lihat Dat
 $route['keranjang/edit']['POST'] = 'KelolaKopi/editKeranjang/$1';   
 $route['keranjang/hapus/(:num)']['GET'] = 'KelolaKopi/hapusKeranjang/$1';   
 $route['checkout']['GET'] = 'KelolaKopi/checkout';   
-$route['checkout']['POST'] = 'KelolaKopi/prosesCheckout';   
+$route['checkout']['POST'] = 'KelolaKopi/prosesCheckout';
 
 $route['login']['POST'] = 'Halaman/prosesLogin'; 
 $route['registrasi']['POST'] = 'Halaman/prosesRegister'; 

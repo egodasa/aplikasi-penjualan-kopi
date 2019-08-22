@@ -15,20 +15,20 @@
           </thead>
           <tbody>
             <?php $total = 0; ?>
-            @foreach($data_list as $nomor => $data)
+            <?php foreach($data_list as $nomor => $data): ?>
               <?php $total+= $data['jumlah'] * $data['harga']; ?>
               <tr>
-                <td><a href="#"><img src="{{ base_url('assets/img/'.$data['gambar']) }}" width="100" alt="White Blouse Armani"></a></td>
-                <td><a href="#">{{ $data['nama'] }}</a></td>
+                <td><a href="#"><img src="<?= base_url('assets/img/'.$data['gambar']) ?>" width="100"></a></td>
+                <td><a href="#"><?= $data['nama'] ?></a></td>
                 <td>
-                    <input type="hidden" name="id[]" value="{{ $data['id'] }}" >
-                    <input type="number" value="{{ $data['jumlah'] }}" name="jumlah[]" class="form-control" />
+                    <input type="hidden" name="id[]" value="<?= $data['id'] ?>" >
+                    <input type="number" value="<?= $data['jumlah'] ?>" name="jumlah[]" class="form-control" />
                 </td>
-                <td>{{ rupiah($data['harga']) }}</td>
-                <td>{{ rupiah(($data['harga'] * $data['jumlah'])) }}</td>
-                <td><a href="{{ site_url('keranjang/hapus/'.$data['id']) }}"><i class="fa fa-trash-o"></i></a></td>
+                <td><?= rupiah($data['harga']) ?></td>
+                <td><?= rupiah(($data['harga'] * $data['jumlah'])) ?></td>
+                <td><a href="<?= site_url('keranjang/hapus/'.$data['id']) ?>"><i class="fa fa-trash-o"></i></a></td>
               </tr>
-            @endforeach
+            <?php endforeach; ?>
           </tbody>
           <tfoot>
             <tr>

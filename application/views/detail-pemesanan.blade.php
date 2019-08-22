@@ -25,14 +25,17 @@
     <div class="col-xs-12 col-sm-3">{{ $data_pemesanan['status'] }}</div>
     
     <div class="col-xs-12 col-sm-3">No Resi</div>
-    <div class="col-xs-12 col-sm-3">{{ $data_pemesanan['noresi] }}</div>
+    <div class="col-xs-12 col-sm-3">{{ $data_pemesanan['noresi'] }}</div>
     <div class="col-xs-12 col-sm-3">Total Bayar</div>
-    <div class="col-xs-12 col-sm-3"></div>
+    <div class="col-xs-12 col-sm-3">{{ rupiah($data_pemesanan['total_bayar']) }}</div>
+    
+    <div class="col-xs-12">Alamat Tujuan</div>
+    <div class="col-xs-12 col-sm-3">{{ $data_pemesanan['alamat'] }}</div>
     
     
   </div>
   <?php
-    {{ $total = 0 }}
+    $total = 0;
   ?>
   <table class="table table-bordered table-stripped">
     <tr>
@@ -43,24 +46,24 @@
       <th>Jumlah</th>
       <th>Sub Total</th>
     </tr>
-    @foreach($data_list as $nomor => $data)
-    {{ $total++ }}
+    <?php foreach($data_list as $nomor => $data): ?>
+      <?php $total+= $data['harga']*$data['jumlah'] ?>
       <tr>
-        <td>{{ ($nomor+1) }}</td>
-        <td>{{ $data['nama'] }}</td>
-        <td><img src="{{ base_url('assets/img/'.$data['gambar']) }}" width="300" height="300" /></td>
-        <td>{{ rupiah($data['harga']) }}</td>
-        <td>{{ $data['jumlah'] }}</td>
-        <td>{{ rupiah(($data['harga']*$data['jumlah'])) }}</td>
+        <td><?= ($nomor+1) ?></td>
+        <td><?= $data['nama'] ?></td>
+        <td><img src="<?= base_url('assets/img/'.$data['gambar']) ?>" width="300" height="300" /></td>
+        <td><?= rupiah($data['harga']) ?></td>
+        <td><?= $data['jumlah'] ?></td>
+        <td><?= rupiah(($data['harga']*$data['jumlah'])) ?></td>
       </tr>
-    @endforeach
+    <?php endforeach; ?>
     <tr>
       <td colspan="5">Ongkir</td>
-      <td>{{ rupiah($data_pemesanan['ongkir']) }}</td>
+      <td>{{ rupiah($data_pemesanan['total_ongkir']) }}</td>
     </tr>
     <tr>
       <td colspan="5">Total Bayar</td>
-      <td>{{ rupiah(($data_pemesanan['ongkir'] + $total)) }}</td>
+      <td>{{ rupiah(($data_pemesanan['total_ongkir'] + $total)) }}</td>
     </tr>
   </table>
 @endsection

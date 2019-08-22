@@ -395,7 +395,8 @@
   }
   function fileUpload($files, $lokasi){
     $file_tmp = $files['tmp_name'];
-    $file_ext=strtolower(end(explode('.', $files['name'])));
+    $nama_file = end(explode('.', $files['name']));
+    $file_ext=strtolower($nama_file);
     $nama_file = generateNumber().".".$file_ext;
     $lokasi_file = $lokasi.$nama_file;
     move_uploaded_file($file_tmp, $lokasi_file);

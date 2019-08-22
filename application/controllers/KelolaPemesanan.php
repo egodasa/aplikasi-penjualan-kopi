@@ -45,4 +45,20 @@ class KelolaPemesanan extends MY_Controller {
     
     header("Location: ".site_url("pemesanan")); // // Arahkan user kembali ke halaman daftar
   }
+  
+  public function detailPemesanan($id_pesan)
+  {
+    $this->_dts['data_pemesanan'] = $this->pemesanan->ambilData($id_pesan);
+    $this->_dts['data_list'] = $this->detail_pesan->ambilDataDenganKOndisi(["id_pesan" => $id_pesan]);
+    $this->view('detail-pemesanan', $this->_dts); // Oper data dari database ke view
+  }
+  
+  public function tambahNoResi()
+  {
+    $data = $this->input->post(NULL, true);
+    $this->pemesanan->updateNoResi($data['id'], $data['noresi']);
+    
+    notifikasi("Berhasil", "Nomor Resi berhasil ditambahkan", "success");
+    header("Location: ".site_url("pemesanan")); // Arahkan kembali user ke halaman daftar
+  }
 }
