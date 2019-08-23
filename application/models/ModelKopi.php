@@ -7,7 +7,7 @@ class ModelKopi extends MY_Model {
     parent::__construct();
     $this->tabel = "kopi";
     $this->primaryKey = "id";
-    $this->kolomBawaanCrud = ["id_kategori","nama","gambar","stok","harga","satuan","deskripsi"];
+    $this->kolomBawaanCrud = ["id_kategori","nama","gambar","stok","harga","satuan","deskripsi", "berat"];
     $this->view = "data_kopi";
   }
 }

@@ -96,6 +96,10 @@ $route['login']['POST'] = 'Halaman/prosesLogin';
 $route['registrasi']['POST'] = 'Halaman/prosesRegister'; 
 $route['logout']['GET'] = 'Halaman/prosesLogout'; 
 
+$route['kota']['GET'] = 'Halaman/getKota'; 
+$route['provinsi']['GET'] = 'Halaman/getProvinsi'; 
+$route['ongkir']['GET'] = 'Halaman/getOngkir'; 
+
 $route['404']['GET'] = 'Autentikasi/dilarang'; 
 
 

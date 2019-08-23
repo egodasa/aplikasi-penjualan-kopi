@@ -57,4 +57,133 @@ class Halaman extends MY_Controller {
   {
     $this->view('dilarang');
   }
+  public function getKota()
+  {
+    $url = "https://api.rajaongkir.com/starter/city";
+    $query_string = http_build_query($_GET);
+    
+    if(!empty($_GET))
+    {
+      $url .= "?".$query_string;
+    }
+    
+    $curl = curl_init();
+    
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => array(
+        "key: 7e0dc077f101a5076023d132112fb690"
+      ),
+    ));
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    
+    curl_close($curl);
+    
+    
+    $result_tmp = json_decode($response);
+    $result = [];
+    
+    $result['code'] = $result_tmp->rajaongkir->status->code;
+    $result['message'] = $result_tmp->rajaongkir->status->description;
+    $result['data'] = null;
+    
+    if (!$err) {
+      $result['data'] = $result_tmp->rajaongkir->results;
+    }
+    
+    echo json_encode($result, JSON_PRETTY_PRINT);
+  }
+  public function getProvinsi()
+  {
+    $url = "https://api.rajaongkir.com/starter/province";
+    $query_string = http_build_query($_GET);
+    
+    if(!empty($_GET))
+    {
+      $url .= "?".$query_string;
+    }
+    
+    $curl = curl_init();
+    
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => array(
+        "key: 7e0dc077f101a5076023d132112fb690"
+      ),
+    ));
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    
+    curl_close($curl);
+    
+    
+    $result_tmp = json_decode($response);
+    $result = [];
+    
+    $result['code'] = $result_tmp->rajaongkir->status->code;
+    $result['message'] = $result_tmp->rajaongkir->status->description;
+    $result['data'] = null;
+    
+    if (!$err) {
+      $result['data'] = $result_tmp->rajaongkir->results;
+    }
+    
+    echo json_encode($result, JSON_PRETTY_PRINT);
+  }
+  public function getOngkir()
+  {
+    $url = "https://api.rajaongkir.com/starter/cost";
+    $query_string = http_build_query($_GET);
+    
+    $curl = curl_init();
+    
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => $query_string,
+      CURLOPT_HTTPHEADER => array(
+        "content-type: application/x-www-form-urlencoded",
+        "key: 7e0dc077f101a5076023d132112fb690"
+      ),
+    ));
+    
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    
+    curl_close($curl);
+    
+    
+    $result_tmp = json_decode($response);
+    $result = [];
+    
+    $result['code'] = $result_tmp->rajaongkir->status->code;
+    $result['message'] = $result_tmp->rajaongkir->status->description;
+    $result['data'] = null;
+    
+    if (!$err) {
+      $result['data'] = $result_tmp->rajaongkir->results;
+    }
+    
+    echo json_encode($result, JSON_PRETTY_PRINT);
+  }
 }

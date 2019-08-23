@@ -5,3 +5,23 @@
     <script src="<?=base_url()?>assets/js/bootstrap-hover-dropdown.js"></script>
     <script src="<?=base_url()?>assets/js/owl.carousel.min.js"></script>
     <script src="<?=base_url()?>assets/js/front.js"></script>
+    <script src="<?=base_url()?>assets/js/axios.min.js"></script>
+    <script src="<?=base_url()?>assets/js/autonumeric.js"></script>
+    <script>
+      var pengaturan_rupiah = {
+        currencySymbol: "Rp",
+        decimalCharacter: ',',
+        digitGroupSeparator: '.',
+        allowDecimalPadding: false
+      };
+      function fillSelect(data, value, caption, default_value, default_caption)
+      {
+        var result = "<option value='" + default_value + "'>" + default_caption + "</option>";
+        var count = data.length;
+        for(var x = 0; x < count; x++)
+        {
+          result += "<option value='" + data[x][value] + "'>" + data[x][caption] + "</option>";
+        }
+        return result;
+      }
+    </script>

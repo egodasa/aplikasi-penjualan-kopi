@@ -11,6 +11,7 @@
       <th>Stok</th>
       <th>Harga</th>
       <th>Satuan</th>
+      <th>Berat (gr)</th>
       <th>deskripsi</th>
       <th>Aksi</th>
     </tr>
@@ -23,6 +24,7 @@
         <td>{{ $data['stok'] }}</td>
         <td>{{ $data['harga'] }}</td>
         <td>{{ $data['satuan'] }}</td>
+        <td>{{ $data['berat'] gr }}</td>
         <td>{{ $data['deskripsi'] }}</td>
          
 
@@ -48,6 +50,7 @@
       elName("harga")[0].value = "";
       elName("satuan")[0].value = "";
       elName("deskripsi")[0].value = "";
+      elName("berat")[0].value = "";
       elId("gambar").innerHTML = "";
     }
     
@@ -76,6 +79,7 @@
       elName("stok")[0].value = detail.stok;
       elName("harga")[0].value = detail.harga;
       elName("satuan")[0].value = detail.satuan;
+      elName("berat")[0].value = detail.berat;
       elName("deskripsi")[0].value = detail.deskripsi;
       if(detail.gambar != "")
       {
@@ -105,6 +109,8 @@
             @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'harga', 'class' => 'form-control', 'max' => 11, 'label' => 'Harga']])
 
             @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'satuan', 'class' => 'form-control', 'max' =>50, 'label' => 'Satuan']])
+            
+            @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'satuan', 'class' => 'form-control', 'label' => 'Berat (gram)']])
 
             @include('components.form.textarea', ['_data' => ['type' => 'text', 'name' => 'deskripsi', 'class' => 'form-control', 'max' => 255, 'label' => 'Deskripsi']])
             
