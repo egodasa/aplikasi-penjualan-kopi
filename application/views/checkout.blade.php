@@ -57,7 +57,7 @@
               </td>
               <td colspan="5">
                 <div class="row">
-                  <div class="col-xs-12 col-sm-4">
+                  <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
                       <label>Pilih Provinsi : </label>
                       <select name="id_provinsi" class="form-control">
@@ -71,7 +71,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-sm-2">
+                  <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
                       <label>Pilih Kurir : </label>
                       <select name="kurir" class="form-control">
@@ -140,8 +140,29 @@
     var id_kota_perusahaan = 421;
     var total_berat = <?=$total_berat?>;
     var data_kurir = [];
+    
+    function resetKota()
+    {
+      document.getElementsByName("id_kota")[0].selectedIndex = 0;
+      document.getElementsByName("id_kota")[0].innerHTML = "<option value=''>Pilih Kota</option>";
+    }
+    function resetKurir()
+    {
+      document.getElementsByName("kurir")[0].selectedIndex = 0;
+    }
+    
+    function resetLayananKurir()
+    {
+      document.getElementsByName("layanan")[0].selectedIndex = 0;
+      document.getElementsByName("layanan")[0].innerHTML = "<option valie=''>Pilih Layanan</option>";
+    }
+    
     function getProvinsi()
     {
+      resetKota();
+      resetKurir();
+      resetLayananKurir();
+      
       axios.get("{{ site_url('provinsi') }}")
       .then(function(res){
         var data = res.data;
@@ -157,6 +178,8 @@
     }
     function getKota()
     {
+      resetKurir();
+      resetLayananKurir();
       var id_provinsi = document.getElementsByName("id_provinsi")[0].value;
       if(id_provinsi)
       {
@@ -181,6 +204,7 @@
     
     function getKurir()
     {
+      resetLayananKurir();
       var id_kota_tujuan = document.getElementsByName("id_kota")[0].value;
       var kurir = document.getElementsByName("kurir")[0].value;
       if(id_kota_tujuan)
@@ -232,10 +256,14 @@
     }
     
     document.getElementsByName("id_provinsi")[0].addEventListener("change", getKota);
+    document.getElementsByName("id_kota")[0].addEventListener("change", function(){
+      resetKurir();
+      resetLayananKurir();
+    });
     document.getElementsByName("kurir")[0].addEventListener("change", getKurir);
     document.getElementsByName("layanan")[0].addEventListener("change", hitungOngkir);
     
-    getProvinsi();s
+    getProvinsi();
   </script>
   
   

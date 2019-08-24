@@ -6,11 +6,11 @@ SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP VIEW IF EXISTS `data_detail_pesan`;
-CREATE TABLE `data_detail_pesan` (`id` int(11), `id_pesan` int(11), `id_kopi` int(11), `jumlah` int(11), `nama` varchar(50), `gambar` varchar(255), `stok` int(11), `harga` int(11), `satuan` varchar(50), `deskripsi` varchar(255), `nama_kategori` varchar(50), `tgl_pesan` datetime, `nama_ekspedisi` varchar(50), `total_ongkir` int(11), `status` enum('Belum bayar','Sedang diverifikasi','Pembayaran diterima','Pembayaran ditolak','Sudah dikirim'), `noresi` varchar(50));
+CREATE TABLE `data_detail_pesan` (`id` int(11), `id_pesan` int(11), `id_kopi` int(11), `jumlah` int(11), `nama` varchar(50), `gambar` varchar(255), `stok` int(11), `harga` int(11), `satuan` varchar(50), `berat` float, `deskripsi` varchar(255), `nama_kategori` varchar(50), `tgl_pesan` datetime, `nama_ekspedisi` varchar(50), `total_ongkir` int(11), `status` enum('Belum bayar','Sedang diverifikasi','Pembayaran diterima','Pembayaran ditolak','Sudah dikirim'), `noresi` varchar(50));
 
 
 DROP VIEW IF EXISTS `data_keranjang`;
-CREATE TABLE `data_keranjang` (`nama` varchar(50), `gambar` varchar(255), `stok` int(11), `harga` int(11), `satuan` varchar(50), `deskripsi` varchar(255), `id_kopi` int(11), `id_user` int(11), `jumlah` int(11), `id` int(11), `nama_kategori` varchar(50));
+CREATE TABLE `data_keranjang` (`nama` varchar(50), `gambar` varchar(255), `berat` float, `stok` int(11), `harga` int(11), `satuan` varchar(50), `deskripsi` varchar(255), `id_kopi` int(11), `id_user` int(11), `jumlah` int(11), `id` int(11), `nama_kategori` varchar(50));
 
 
 DROP VIEW IF EXISTS `data_kopi`;
@@ -33,7 +33,8 @@ CREATE TABLE `detail_pesan` (
 INSERT INTO `detail_pesan` (`id`, `id_pesan`, `id_kopi`, `jumlah`) VALUES
 (1,	1,	2,	1),
 (2,	2,	2,	2),
-(3,	2,	2,	2);
+(3,	2,	2,	2),
+(4,	3,	2,	1);
 
 DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
@@ -56,8 +57,6 @@ CREATE TABLE `keranjang` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `keranjang` (`id`, `id_kopi`, `id_user`, `jumlah`) VALUES
-(3,	2,	3,	1);
 
 DROP TABLE IF EXISTS `kopi`;
 CREATE TABLE `kopi` (
@@ -69,11 +68,12 @@ CREATE TABLE `kopi` (
   `harga` int(11) NOT NULL,
   `satuan` varchar(50) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
+  `berat` float NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `kopi` (`id`, `id_kategori`, `nama`, `gambar`, `stok`, `harga`, `satuan`, `deskripsi`) VALUES
-(2,	3,	'Qui qui cumque sunt ',	'200819091046111800.png',	2,	3,	'Voluptatibus dolorib',	'Rerum omnis perspici');
+INSERT INTO `kopi` (`id`, `id_kategori`, `nama`, `gambar`, `stok`, `harga`, `satuan`, `deskripsi`, `berat`) VALUES
+(2,	3,	'Qui qui cumque sunt ',	'200819091046111800.png',	2,	3,	'Voluptatibus dolorib',	'Rerum omnis perspici',	300);
 
 DROP TABLE IF EXISTS `pembayaran`;
 CREATE TABLE `pembayaran` (
@@ -111,7 +111,8 @@ CREATE TABLE `pemesanan` (
 
 INSERT INTO `pemesanan` (`id`, `id_user`, `tgl_pesan`, `nama_ekspedisi`, `total_ongkir`, `status`, `noresi`, `alamat`) VALUES
 (1,	3,	'2019-08-20 00:00:00',	'',	0,	'Sedang diverifikasi',	'',	''),
-(2,	3,	'2019-08-22 00:00:00',	'',	0,	'Sudah dikirim',	'12dq2dww',	'');
+(2,	3,	'2019-08-22 00:00:00',	'',	0,	'Sudah dikirim',	'12dq2dww',	''),
+(3,	3,	'2019-08-24 00:00:00',	'JNE OKE',	45000,	'Belum bayar',	'',	'');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -130,10 +131,10 @@ INSERT INTO `users` (`id`, `nama`, `email`, `telepon`, `username`, `password`, `
 (3,	'Sed nesciunt maxime',	'pejima@mailinator.net',	'Consequat Culpa ex',	'mandan',	'12345',	'Member');
 
 DROP TABLE IF EXISTS `data_detail_pesan`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_detail_pesan` AS select `detail_pesan`.`id` AS `id`,`detail_pesan`.`id_pesan` AS `id_pesan`,`detail_pesan`.`id_kopi` AS `id_kopi`,`detail_pesan`.`jumlah` AS `jumlah`,`kopi`.`nama` AS `nama`,`kopi`.`gambar` AS `gambar`,`kopi`.`stok` AS `stok`,`kopi`.`harga` AS `harga`,`kopi`.`satuan` AS `satuan`,`kopi`.`deskripsi` AS `deskripsi`,`kategori`.`nama_kategori` AS `nama_kategori`,`pemesanan`.`tgl_pesan` AS `tgl_pesan`,`pemesanan`.`nama_ekspedisi` AS `nama_ekspedisi`,`pemesanan`.`total_ongkir` AS `total_ongkir`,`pemesanan`.`status` AS `status`,`pemesanan`.`noresi` AS `noresi` from (((`detail_pesan` join `kopi` on((`kopi`.`id` = `detail_pesan`.`id_kopi`))) join `kategori` on((`kategori`.`id` = `kopi`.`id_kategori`))) join `pemesanan` on((`detail_pesan`.`id_pesan` = `pemesanan`.`id`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_detail_pesan` AS select `detail_pesan`.`id` AS `id`,`detail_pesan`.`id_pesan` AS `id_pesan`,`detail_pesan`.`id_kopi` AS `id_kopi`,`detail_pesan`.`jumlah` AS `jumlah`,`kopi`.`nama` AS `nama`,`kopi`.`gambar` AS `gambar`,`kopi`.`stok` AS `stok`,`kopi`.`harga` AS `harga`,`kopi`.`satuan` AS `satuan`,`kopi`.`berat` AS `berat`,`kopi`.`deskripsi` AS `deskripsi`,`kategori`.`nama_kategori` AS `nama_kategori`,`pemesanan`.`tgl_pesan` AS `tgl_pesan`,`pemesanan`.`nama_ekspedisi` AS `nama_ekspedisi`,`pemesanan`.`total_ongkir` AS `total_ongkir`,`pemesanan`.`status` AS `status`,`pemesanan`.`noresi` AS `noresi` from (((`detail_pesan` join `kopi` on((`kopi`.`id` = `detail_pesan`.`id_kopi`))) join `kategori` on((`kategori`.`id` = `kopi`.`id_kategori`))) join `pemesanan` on((`detail_pesan`.`id_pesan` = `pemesanan`.`id`)));
 
 DROP TABLE IF EXISTS `data_keranjang`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_keranjang` AS select `kopi`.`nama` AS `nama`,`kopi`.`gambar` AS `gambar`,`kopi`.`stok` AS `stok`,`kopi`.`harga` AS `harga`,`kopi`.`satuan` AS `satuan`,`kopi`.`deskripsi` AS `deskripsi`,`keranjang`.`id_kopi` AS `id_kopi`,`keranjang`.`id_user` AS `id_user`,`keranjang`.`jumlah` AS `jumlah`,`keranjang`.`id` AS `id`,`kategori`.`nama_kategori` AS `nama_kategori` from ((`keranjang` join `kopi` on((`kopi`.`id` = `keranjang`.`id_kopi`))) join `kategori` on((`kategori`.`id` = `kopi`.`id_kategori`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_keranjang` AS select `kopi`.`nama` AS `nama`,`kopi`.`gambar` AS `gambar`,`kopi`.`berat` AS `berat`,`kopi`.`stok` AS `stok`,`kopi`.`harga` AS `harga`,`kopi`.`satuan` AS `satuan`,`kopi`.`deskripsi` AS `deskripsi`,`keranjang`.`id_kopi` AS `id_kopi`,`keranjang`.`id_user` AS `id_user`,`keranjang`.`jumlah` AS `jumlah`,`keranjang`.`id` AS `id`,`kategori`.`nama_kategori` AS `nama_kategori` from ((`keranjang` join `kopi` on((`kopi`.`id` = `keranjang`.`id_kopi`))) join `kategori` on((`kategori`.`id` = `kopi`.`id_kategori`)));
 
 DROP TABLE IF EXISTS `data_kopi`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_kopi` AS select `kopi`.`id_kategori` AS `id_kategori`,`kopi`.`nama` AS `nama`,`kopi`.`gambar` AS `gambar`,`kopi`.`stok` AS `stok`,`kopi`.`harga` AS `harga`,`kopi`.`satuan` AS `satuan`,`kopi`.`deskripsi` AS `deskripsi`,`kategori`.`nama_kategori` AS `nama_kategori`,`kopi`.`id` AS `id` from (`kopi` join `kategori` on((`kategori`.`id` = `kopi`.`id_kategori`)));
@@ -141,4 +142,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_kopi` AS select `kopi
 DROP TABLE IF EXISTS `data_pemesanan`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_pemesanan` AS select `pemesanan`.`id` AS `id`,`pembayaran`.`id` AS `id_pembayaran`,`pemesanan`.`id_user` AS `id_user`,cast(`pemesanan`.`tgl_pesan` as date) AS `tgl_pesan`,`pemesanan`.`nama_ekspedisi` AS `nama_ekspedisi`,`pemesanan`.`total_ongkir` AS `total_ongkir`,`pemesanan`.`alamat` AS `alamat`,`pemesanan`.`status` AS `status`,`pemesanan`.`noresi` AS `noresi`,`users`.`nama` AS `nama`,`users`.`email` AS `email`,`users`.`telepon` AS `telepon`,`users`.`username` AS `username`,ifnull(`pembayaran`.`jumlah_bayar`,0) AS `jumlah_bayar`,ifnull(`pembayaran`.`nama_bank`,'') AS `nama_bank`,ifnull(`pembayaran`.`norek`,'') AS `norek`,max(ifnull(cast(`pembayaran`.`tgl_bayar` as date),'')) AS `tgl_bayar`,ifnull(`pembayaran`.`status_bayar`,'Belum Bayar') AS `status_bayar`,ifnull(`pembayaran`.`bank_tujuan`,'') AS `bank_tujuan`,ifnull(`pembayaran`.`norek_tujuan`,'') AS `norek_tujuan`,ifnull(`pembayaran`.`bukti_bayar`,'') AS `bukti_bayar`,sum(((`data_detail_pesan`.`jumlah` * `data_detail_pesan`.`harga`) + `pemesanan`.`total_ongkir`)) AS `total_bayar` from (((`pemesanan` join `users` on((`pemesanan`.`id_user` = `users`.`id`))) left join `pembayaran` on((`pembayaran`.`id_pesan` = `pemesanan`.`id`))) left join `data_detail_pesan` on((`data_detail_pesan`.`id_pesan` = `pemesanan`.`id`))) group by `pemesanan`.`id`;
 
--- 2019-08-22 09:38:56
+-- 2019-08-24 01:33:47
