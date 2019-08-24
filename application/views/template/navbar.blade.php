@@ -28,6 +28,8 @@
                           <li class="dropdown-item"><a href="{{ site_url('kopi') }}" class="nav-link"><i class="fa fa-list"></i> Data Kopi</a></li>
                           <li class="dropdown-item"><a href="{{ site_url('user') }}" class="nav-link"><i class="fa fa-list"></i> Data User</a></li>
                           <li class="dropdown-item"><a href="{{ site_url('pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Data Pemesanan</a></li>
+                          <li class="dropdown-item"><a href="{{ site_url('laporan-kopi') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Kopi</a></li>
+                          <li class="dropdown-item"><a href="{{ site_url('laporan-pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Pemesanan</a></li>
                         @else
                           <li class="dropdown-item"><a href="{{ site_url('pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Data Pemesanan</a></li>
                         @endif

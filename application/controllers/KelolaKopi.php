@@ -111,4 +111,9 @@ class KelolaKopi extends MY_Controller {
     notifikasi("Berhasil", "Pemesanan berhasil dilakukan.", "success");
     header("Location: ".site_url('/'));
   }
+  public function cetakLaporanKopi()
+  {
+    $this->_dts['data_list'] = $this->kopi->ambilData();
+    $this->view("cetak-laporan-kopi", $this->_dts);
+  }
 }

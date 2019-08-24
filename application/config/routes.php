@@ -92,6 +92,10 @@ $route['keranjang/hapus/(:num)']['GET'] = 'KelolaKopi/hapusKeranjang/$1';
 $route['checkout']['GET'] = 'KelolaKopi/checkout';   
 $route['checkout']['POST'] = 'KelolaKopi/prosesCheckout';
 
+$route['laporan-kopi']['GET'] = 'KelolaKopi/cetakLaporanKopi';
+$route['laporan-pemesanan']['GET'] = 'KelolaPemesanan/laporanPemesanan';
+$route['cetak-laporan-pemesanan']['GET'] = 'KelolaPemesanan/cetakLaporanPemesanan';
+
 $route['login']['POST'] = 'Halaman/prosesLogin'; 
 $route['registrasi']['POST'] = 'Halaman/prosesRegister'; 
 $route['logout']['GET'] = 'Halaman/prosesLogout'; 

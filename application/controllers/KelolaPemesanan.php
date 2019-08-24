@@ -2,6 +2,8 @@
 session_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Medoo\medoo;
+
 class KelolaPemesanan extends MY_Controller {
   // Nama Tabel
   private $table = "pemesanan";
@@ -60,5 +62,45 @@ class KelolaPemesanan extends MY_Controller {
     
     notifikasi("Berhasil", "Nomor Resi berhasil ditambahkan", "success");
     header("Location: ".site_url("pemesanan")); // Arahkan kembali user ke halaman daftar
+  }
+  public function laporanPemesanan()
+  {
+    $this->view("laporan-pemesanan");
+  }
+  public function cetakLaporanPemesanan()
+  {
+    $kondisi = "WHERE status IN ('Pembayaran diterima','Sudah dikirim') AND ";
+    $parameter_kondisi = [];
+    
+    $data = $this->input->get(NULL,  true);
+    $judul = "";
+    switch($data['jenis'])
+    {
+      case "harian":
+        $judul = "Laporan Harian <br> Tanggal ".TanggalIndo($data['tgl_pesan']);
+        $kondisi .= "DATE(tgl_pesan) = DATE(:tgl_pesan)";
+        $parameter_kondisi[':tgl_pesan'] = $data['tgl_pesan'];
+      break;
+      case "bulanan":
+        $judul = "Laporan Bulanan <br> Bulan ".tanggal_indo_bulan_tahun($data['tgl_pesan']);
+        $kondisi .= "LEFT(tgl_pesan, 7) = LEFT(:tgl_pesan, 7)";
+        $parameter_kondisi[':tgl_pesan'] = $data['tgl_pesan'];
+      break;
+      case "tahunan":
+        $judul = "Laporan Tahunan <br> Tahun ".substr($data['tgl_pesan'], 0, 4);
+        $kondisi .= " LEFT(tgl_pesan, 4) = LEFT(:tgl_pesan, 4)";
+        $parameter_kondisi[':tgl_pesan'] = $data['tgl_pesan'];
+      break;
+      case "periode":
+        $judul = "Laporan Per Periode <br> Tanggal ".TanggalIndo($data['tgl_pesan_awal'])." - ".TanggalIndo($data['tgl_pesan_akhir']);
+        $kondisi .= "DATE(tgl_pesan) >= DATE(:tgl_pesan_awal) AND DATE(tgl_pesan) <= DATE(:tgl_pesan_akhir)";
+        $parameter_kondisi[':tgl_pesan_awal'] = $data['tgl_pesan_awal'];
+        $parameter_kondisi[':tgl_pesan_akhir'] = $data['tgl_pesan_akhir'];
+      break;
+    }
+    $this->_dts['judul'] = $judul;
+    $this->_dts['data_list'] = $this->pemesanan->ambilDataDenganKOndisi(Medoo::raw($kondisi, $parameter_kondisi));
+    
+    $this->view("cetak-laporan-pemesanan", $this->_dts);
   }
 }

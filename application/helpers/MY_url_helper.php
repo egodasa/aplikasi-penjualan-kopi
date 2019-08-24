@@ -274,11 +274,11 @@
   
   function tanggal_indo_waktu($waktu, $hari = false){
     $bagian = explode(" ", $waktu);
-    $tanggal = tanggal_indo($bagian[0], $hari);
+    $tanggal = TanggalIndo($bagian[0], $hari);
     return $tanggal." ".$bagian[1];
   }
   function tanggal_indo_bulan_tahun($tanggal){
-     $waktu = explode(" ", tanggal_indo_waktu($tanggal));
+     $waktu = explode(" ", TanggalIndo($tanggal));
      return $waktu[1]." ".$waktu[2];
   }
   function alertBootstrap($judul = "Pesan!", $isi_pesan = "Isi Pesan.", $jenis_alert = "success"){

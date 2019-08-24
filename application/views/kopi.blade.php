@@ -24,7 +24,7 @@
         <td>{{ $data['stok'] }}</td>
         <td>{{ $data['harga'] }}</td>
         <td>{{ $data['satuan'] }}</td>
-        <td>{{ $data['berat'] gr }}</td>
+        <td>{{ $data['berat'] }} gr</td>
         <td>{{ $data['deskripsi'] }}</td>
          
 
