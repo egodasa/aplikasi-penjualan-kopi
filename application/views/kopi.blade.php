@@ -110,7 +110,7 @@
 
             @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'satuan', 'class' => 'form-control', 'max' =>50, 'label' => 'Satuan']])
             
-            @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'satuan', 'class' => 'form-control', 'label' => 'Berat (gram)']])
+            @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'berat', 'class' => 'form-control', 'label' => 'Berat (gram)']])
 
             @include('components.form.textarea', ['_data' => ['type' => 'text', 'name' => 'deskripsi', 'class' => 'form-control', 'max' => 255, 'label' => 'Deskripsi']])
             
