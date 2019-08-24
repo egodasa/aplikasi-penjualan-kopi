@@ -104,9 +104,9 @@
 
             @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'nama', 'class' => 'form-control', 'max' => 50, 'label' => 'Nama Kopi']])
 
-            @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'stok', 'class' => 'form-control', 'max' => 11, 'label' => 'Stok']])
+            @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'stok', 'class' => 'form-control', 'label' => 'Stok']])
 
-            @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'harga', 'class' => 'form-control', 'max' => 11, 'label' => 'Harga']])
+            @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'harga', 'class' => 'form-control', 'label' => 'Harga']])
 
             @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'satuan', 'class' => 'form-control', 'max' =>50, 'label' => 'Satuan']])
             
