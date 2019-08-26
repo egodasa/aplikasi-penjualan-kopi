@@ -49,6 +49,15 @@
               <button onclick="showModalNoResi({{ $nomor }})" class="btn btn-primary btn-sm">Tambah Nomor Resi</button>
             @endif
           @endif
+          
+          <?php
+          	if(!empty($data['noresi']))
+          	{
+          ?>
+          	<a href="https://cekresi.com/?noresi=<?=$data['noresi']?>" class="btn btn-primary btn-sm" target="_blank">Lacak Paket</a>
+          <?php
+          	}
+          ?>
         </td>
       </tr>
     @endforeach
