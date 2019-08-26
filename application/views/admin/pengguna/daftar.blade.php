@@ -90,6 +90,7 @@
       <select class="form-control" name="level">
         <option value="Admin">Admin</option>
         <option value="Member">Member</option>
+        <option value="Ketua Koperasi">Ketua Koperasi</option>
       </select>
     </div>
         </div>

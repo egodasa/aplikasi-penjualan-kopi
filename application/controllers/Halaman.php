@@ -38,7 +38,7 @@ class Halaman extends MY_Controller {
     if(count($cek) > 0)
     {
       notifikasi("Registrasi gagal!", "Username atau email sudah pernah digunakan!", "warning");
-      header("Location: ".site_url("admin/register"));
+      header("Location: ".site_url("/"));
     }
     else
     {
@@ -49,7 +49,7 @@ class Halaman extends MY_Controller {
   }
   public function prosesLogout()
   {
-    unset($_SESSION['username']);
+    session_destroy();
     notifikasi("Pesan", "Anda berhasil logout", "success");
     header('Location: '.site_url('/'));
   }

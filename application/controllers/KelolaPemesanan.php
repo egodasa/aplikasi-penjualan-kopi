@@ -17,7 +17,15 @@ class KelolaPemesanan extends MY_Controller {
   //  Method untuk menampilkan data
   public function daftar()
   {
-    $this->_dts['data_list'] = $this->pemesanan->ambilData();  // Proses pengambilan data dari database
+  	if($_SESSION['akses_level'] == "Admin")
+  	{
+  		$this->_dts['data_list'] = $this->pemesanan->ambilData();  // Proses pengambilan data dari database	
+  	}
+  	else
+  	{
+  		$this->_dts['data_list'] = $this->pemesanan->ambilDataDenganKondisi(["id_user" => $_SESSION['id']]);  // Proses pengambilan data dari database
+  	}
+    
     $this->_dts['data_user'] = $this->user->ambilData();  // Proses pengambilan data dari database
     $this->view('pemesanan', $this->_dts); // Oper data dari database ke view
   }
@@ -26,7 +34,7 @@ class KelolaPemesanan extends MY_Controller {
   // Method diakses dalam metode POST
   public function prosesTambah()
   {
-    $this->program->tambahData($this->input->post(NULL, TRUE));
+    $this->pemesanan->tambahData($this->input->post(NULL, TRUE));
     
     header("Location: ".site_url("pemesanan")); // Arahkan kembali user ke halaman daftar
   }
@@ -35,7 +43,7 @@ class KelolaPemesanan extends MY_Controller {
   // Method untuk memproses data yang akan diedit
   public function prosesEdit()
   {
-    $this->program->ubahData($this->input->post("id"), $this->input->post(NULL, TRUE));
+    $this->pemesanan->ubahData($this->input->post("id"), $this->input->post(NULL, TRUE));
     
     header("Location: ".site_url("pemesanan")); // Arahkan user kembali ke halaman daftar
   }
@@ -43,7 +51,7 @@ class KelolaPemesanan extends MY_Controller {
   // Method untuk menghapus data
   public function prosesHapus()
   {
-    $this->program->hapusData($this->input->get('id')); // Proses hapus data
+    $this->pemesanan->hapusData($this->input->get('id')); // Proses hapus data
     
     header("Location: ".site_url("pemesanan")); // // Arahkan user kembali ke halaman daftar
   }

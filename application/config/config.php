@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/ci-starter/';
+$config['base_url'] = 'http://solok-radja.dafma.id/';
 
 /*
 |--------------------------------------------------------------------------
