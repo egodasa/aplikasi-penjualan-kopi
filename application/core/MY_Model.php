@@ -14,10 +14,10 @@ class MY_Model extends CI_Model {
     parent::__construct();
     $this->db = new Medoo([
       'database_type' => 'mysql',
-      'database_name' => 'mandanon_kopi',
+      'database_name' => 'db_kopi',
       'server' => 'localhost',
-      'username' => 'mandanon_kopi',
-      'password' => 'qwe123*IOP'
+      'username' => 'root',
+      'password' => 'mysql'
     ]);
   }
   

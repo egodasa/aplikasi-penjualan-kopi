@@ -5,14 +5,23 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2 class="mb-0">Daftar Produk Kopi Solok Radja</h2>
+          <div id="main-slider" class="owl-carousel owl-theme">
+            <div class="item"><img src="{{ base_url('img/main-slider1.jpg') }}" alt="" class="img-fluid"></div>
+            <div class="item"><img src="{{ base_url('img/main-slider2.jpg') }}" alt="" class="img-fluid"></div>
+            <div class="item"><img src="{{ base_url('img/main-slider3.jpg') }}" alt="" class="img-fluid"></div>
+            <div class="item"><img src="{{ base_url('img/main-slider4.jpg') }}" alt="" class="img-fluid"></div>
+          </div>
+          <!-- /#main-slider-->
+        </div>
+        <div class="col-md-12">
+          <h2 class="mb-0">PRODUK</h2>
         </div>
       </div>
     </div>
   </div>
   <div class="row-products">
     @foreach($data_list as $nomor => $data)
-      <div class="col-md-3 col-sm-4">
+      <div class="col-md-4 col-sm-4">
         <div class="product">
           <div class="flip-container">
             <div class="flipper">
