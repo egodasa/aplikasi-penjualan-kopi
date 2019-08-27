@@ -1,6 +1,6 @@
 <div class="navbar-header">
                 <a class="navbar-brand home" href="{{ base_url() }}" data-animate-hover="bounce">
-                    <img src="{{ base_url() }}assets/img/logo.png" alt="Solok Radja logo" class="hidden-xs">
+                    <img src="{{ base_url() }}assets/img/logo-small.png" alt="Solok Radja logo" class="hidden-xs">
                     <img src="{{ base_url() }}assets/img/logo-small.png" alt="Solok Radja logo" class="visible-xs"><span class="sr-only">Solok Radja - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
@@ -28,6 +28,9 @@
                           <li class="dropdown-item"><a href="{{ site_url('kopi') }}" class="nav-link"><i class="fa fa-list"></i> Data Kopi</a></li>
                           <li class="dropdown-item"><a href="{{ site_url('user') }}" class="nav-link"><i class="fa fa-list"></i> Data User</a></li>
                           <li class="dropdown-item"><a href="{{ site_url('pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Data Pemesanan</a></li>
+                          <li class="dropdown-item"><a href="{{ site_url('laporan-kopi') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Kopi</a></li>
+                          <li class="dropdown-item"><a href="{{ site_url('laporan-pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Penjualan</a></li>
+                        @elseif($_SESSION['akses_level'] == "Ketua Koperasi")
                           <li class="dropdown-item"><a href="{{ site_url('laporan-kopi') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Kopi</a></li>
                           <li class="dropdown-item"><a href="{{ site_url('laporan-pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Penjualan</a></li>
                         @else

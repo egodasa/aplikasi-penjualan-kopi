@@ -37,6 +37,7 @@
               </tr>
             @else
               @if(isset($_SESSION['id']))
+                @if($_SESSION['akses_level'] == 'Member')
               <tr>
                 <td colspan="3">
                   <form method="POST">
@@ -53,6 +54,7 @@
                   </form>
                 </td>
               </tr>
+                @endif
               @endif
             @endif
           </table>        
