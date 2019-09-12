@@ -37,6 +37,7 @@
         <td>
           <button type="button" onclick="showConfirmationDelete('<?=site_url("pemesanan/hapus?id=".$data['id'])?>')" class="btn btn-danger btn-sm">Hapus</button>
           <a href="{{ site_url('pemesanan/detail/'.$data['id']) }}" class="btn btn-warning btn-sm">Detail Pemesanan</a>
+          <a href="{{ site_url('pemesanan/detail/faktur/'.$data['id']) }}" target="_blank" class="btn btn-success btn-sm">Cetak Faktur</a>
           
           @if($_SESSION['akses_level'] == "Member" )
             @if(in_array($data['status'], ["Belum bayar", "Pembayaran ditolak"]))

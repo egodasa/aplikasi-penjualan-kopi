@@ -1,7 +1,7 @@
 <?php
 session_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+use Dompdf\Dompdf;
 class KelolaPemesanan extends MY_Controller {
   // Nama Tabel
   private $table = "pemesanan";

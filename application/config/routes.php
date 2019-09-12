@@ -77,7 +77,8 @@ $route['pemesanan']['GET'] = 'KelolaPemesanan/daftar';                // Lihat D
 $route['pemesanan/tambah']['POST'] = 'KelolaPemesanan/prosesTambah';  // Proses Tambah Data
 $route['pemesanan/edit']['POST'] = 'KelolaPemesanan/prosesEdit';             // Proses Edit Data
 $route['pemesanan/hapus']['GET'] = 'KelolaPemesanan/prosesHapus';     // Hapus Data
-$route['pemesanan/detail/(:num)']['GET'] = 'KelolaPemesanan/detailPemesanan/$1';     // Hapus Data
+$route['pemesanan/detail/(:num)']['GET'] = 'KelolaPemesanan/detailPemesanan/$1';
+$route['pemesanan/detail/faktur/(:num)']['GET'] = 'KelolaPemesanan/cetakFaktur/$1';
 
 $route['konfirmasi-pembayaran']['POST'] = 'KelolaPembayaran/konfirmasiPembayaran';     // Hapus Data
 $route['verifikasi-pembayaran']['POST'] = 'KelolaPembayaran/verifikasiPembayaran';     // Hapus Data

@@ -62,5 +62,13 @@
       </div>
     </div>
   </div>
+  <div class="addthis_sharing_toolbox" 
+  data-url="<?=$_SERVER['PHP_SELF']?>" 
+  data-title="{{ $detail_kopi['nama'] }}" 
+  data-description="{{ $detail_kopi['deskripsi'] }}" 
+  data-media="{{ base_url('assets/img/'.$detail_kopi['gambar']) }}"></div>
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4db95bfa7c682ee0"></script>
 @endsection
+
+
 

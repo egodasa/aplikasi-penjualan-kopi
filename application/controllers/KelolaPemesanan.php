@@ -2,6 +2,7 @@
 session_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Dompdf\Dompdf;
 use Medoo\medoo;
 
 class KelolaPemesanan extends MY_Controller {
@@ -61,6 +62,22 @@ class KelolaPemesanan extends MY_Controller {
     $this->_dts['data_pemesanan'] = $this->pemesanan->ambilData($id_pesan);
     $this->_dts['data_list'] = $this->detail_pesan->ambilDataDenganKOndisi(["id_pesan" => $id_pesan]);
     $this->view('detail-pemesanan', $this->_dts); // Oper data dari database ke view
+  }
+  
+  public function cetakFaktur($id_pesan)
+  {
+    $this->_dts['data_pemesanan'] = $this->pemesanan->ambilData($id_pesan);
+    $this->_dts['data_list'] = $this->detail_pesan->ambilDataDenganKOndisi(["id_pesan" => $id_pesan]);
+    $content = $this->renderView('cetak-faktur', $this->_dts);
+    $dompdf = new Dompdf(array('enable_remote' => true));
+    $dompdf->loadHtml($content);
+    // (Optional) Setup the paper size and orientation
+    $dompdf->setPaper('A4', 'portrait');
+    // Render the HTML as PDF
+    $dompdf->render();
+    
+    $dompdf->stream("faktur.pdf", array("Attachment" => false));
+    exit(0);
   }
   
   public function tambahNoResi()
