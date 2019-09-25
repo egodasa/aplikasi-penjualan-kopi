@@ -6,11 +6,15 @@
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
                         <span class="sr-only">Toggle navigation</span>
-                        <i class="fa fa-align-justify"></i>
+                       <i class="fa fa-align-justify"></i>
                     </button>
-                    <a class="btn btn-default navbar-toggle" href="{{ site_url('keranjang') }}">
-                        <i class="fa fa-shopping-cart"></i>  <span class="hidden-xs">3 items in cart</span>
-                    </a>
+                    @if(isset($_SESSION['username']))
+			                @if($_SESSION['akses_level'] == "Member")
+			                  <a class="btn btn-default navbar-toggle" href="{{ site_url('keranjang') }}">
+		                      <i class="fa fa-shopping-cart"></i>  <span class="hidden-xs"></span>
+		                    </a>
+			                @endif
+			              @endif
                 </div>
             </div>
             <!--/.navbar-header -->
