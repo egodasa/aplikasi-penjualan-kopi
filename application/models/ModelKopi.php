@@ -10,4 +10,8 @@ class ModelKopi extends MY_Model {
     $this->kolomBawaanCrud = ["id_kategori","nama","gambar","stok","harga","satuan","deskripsi", "berat"];
     $this->view = "data_kopi";
   }
+  public function tambahKopi($id, $jumlah)
+  {
+  	$this->db->query("UPDATE kopi SET stok = stok + ".$jumlah." WHERE id = ".$id);
+  }
 }

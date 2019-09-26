@@ -23,8 +23,8 @@
 		
 		<table style="width: 100%;">
 			<tr>
-		    <td style="width: 25%;">ID Pemesanan</td>
-		    <td style="width: 30%;">{{ $data_pemesanan['id'] }}</td>
+		    <td style="width: 25%;">No Invoice</td>
+		    <td style="width: 30%;">INV/{{ $data_pemesanan['id']."/".$data_pemesanan['id_user']."/".str_replace("-","", $data_pemesanan['tgl_pesan']) }}</td>
 		    <td style="width: 20%;">Nama Pemesan</td>
 		    <td style="width: 25%;">{{ $data_pemesanan['nama'] }}</td>
 	    </tr>
@@ -53,9 +53,8 @@
 		    <td>{{ rupiah($data_pemesanan['total_bayar']) }}</td>
 	    </tr>
 	    <tr>
-	    	<td colspan="2">&nbsp;</td>
 	    	<td>Alamat Tujuan</td>
-		    <td>{{ $data_pemesanan['alamat'] }}</td>
+		    <td colspan="3">{{ $data_pemesanan['alamat'] }}</td>
 	    </tr>
 	   </table>
 	  <?php
@@ -63,20 +62,20 @@
 	  ?>
 	  <table class="tabel_laporan" style="width: 100%;">
 	    <tr>
-	      <th  class="tabel_laporan">No</th>
-	      <th  class="tabel_laporan">Nama Kopi</th>
-	      <th  class="tabel_laporan">harga</th>
-	      <th  class="tabel_laporan">Jumlah</th>
-	      <th  class="tabel_laporan">Sub Total</th>
+	      <th class="tabel_laporan">No</th>
+	      <th class="tabel_laporan">Nama Kopi</th>
+	      <th class="tabel_laporan">harga</th>
+	      <th class="tabel_laporan">Jumlah</th>
+	      <th class="tabel_laporan">Sub Total</th>
 	    </tr>
 	    <?php foreach($data_list as $nomor => $data): ?>
-	      <?php $total+= $data['harga']*$data['jumlah'] ?>
+	      <?php $total+= $data['sub_total'] ?>
 	      <tr>
 	        <td  class="tabel_laporan"><?= ($nomor+1) ?></td>
 	        <td  class="tabel_laporan"><?= $data['nama'] ?></td>
-	        <td  class="tabel_laporan"><?= rupiah($data['harga']) ?></td>
+	        <td  class="tabel_laporan"><?= rupiah($data['harga']-$data['diskon']) ?></td>
 	        <td  class="tabel_laporan"><?= $data['jumlah'] ?></td>
-	        <td  class="tabel_laporan"><?= rupiah(($data['harga']*$data['jumlah'])) ?></td>
+	        <td  class="tabel_laporan"><?= rupiah($data['sub_total']) ?></td>
 	      </tr>
 	    <?php endforeach; ?>
 	    <tr>

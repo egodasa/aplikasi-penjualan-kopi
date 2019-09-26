@@ -1,0 +1,4 @@
+[26-Sep-2019 16:01:24 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/mandanon/solok-radja.dafma.id/application/controllers/Halaman.php on line 227
+[26-Sep-2019 16:01:35 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/mandanon/solok-radja.dafma.id/application/controllers/Halaman.php on line 227
+[26-Sep-2019 16:03:08 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/mandanon/solok-radja.dafma.id/application/controllers/Halaman.php on line 258
+[26-Sep-2019 16:03:11 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/mandanon/solok-radja.dafma.id/application/controllers/Halaman.php on line 258

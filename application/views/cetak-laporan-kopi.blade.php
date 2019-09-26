@@ -41,6 +41,7 @@
       		<th>Gambar</th>
       		<th>Stok</th>
       		<th>Harga</th>
+      		<th>Diskon</th>
       		<th>Satuan</th>
       		<th>Berat</th>
       		<th>Deskripsi</th>
@@ -52,7 +53,8 @@
             <td>{{ $data['nama'] }}</td>
             <td><img src="{{ base_url('assets/img/'.$data['gambar']) }}" width="100" height="100"></td>
             <td>{{ $data['stok'] }}</td>
-            <td>{{ $data['harga'] }}</td>
+            <td>{{ rupiah($data['harga']) }}</td>
+            <td>{{ $data['diskon_persen']."% (".rupiah($data['diskon']).")" }}</td>
             <td>{{ $data['satuan'] }}</td>
             <td>{{ $data['berat'] }} gr</td>
             <td>{{ $data['deskripsi'] }}</td>

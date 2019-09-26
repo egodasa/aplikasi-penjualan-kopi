@@ -20,15 +20,8 @@ class ModelUser extends MY_Model {
     ]);
     return true;
   }
- public function gantiPassword($id, $data)
-  {
-    $this->db->update($this->table, [
-       "password" => $data["password"]   // daftar kolom yang akan diedit ke tabel
-      
-    ],[
-      $this->primaryKey => $id
-    ]);
-    return true;
+  public function resetPassword($email, $password){
+  	$this->db->update($this->tabel, ["password" => $password], ['email' => $email]);
   }
  
 }

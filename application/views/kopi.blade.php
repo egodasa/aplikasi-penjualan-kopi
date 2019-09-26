@@ -2,7 +2,10 @@
 @section('content')
   <h3>Data Kopi</h3>
 	<button type="button" onclick="showModalTambah()" class="btn btn-primary">Tambah Data</button>
+	<div class="table-responsive">
+    <div style="overflow:auto; max-height:650px; margin:0px 0 0px 0;">
   <table class="table table-bordered table-stripped">
+  	<thead>
     <tr>
       <th>No</th>
       <th>Nama</th>
@@ -10,11 +13,14 @@
       <th>Gambar</th>
       <th>Stok</th>
       <th>Harga</th>
+      <th>Diskon</th>
       <th>Satuan</th>
       <th>Berat (gr)</th>
       <th>deskripsi</th>
       <th>Aksi</th>
     </tr>
+    </thead>
+    <tbody>
     @foreach($data_list as $nomor => $data)
       <tr>
         <td>{{ ($nomor+1) }}</td>
@@ -22,7 +28,8 @@
         <td>{{ $data['nama_kategori'] }}</td>
         <td><img src="{{ base_url('assets/img/'.$data['gambar']) }}" width="300" height="300"></td>
         <td>{{ $data['stok'] }}</td>
-        <td>{{ $data['harga'] }}</td>
+        <td>{{ rupiah($data['harga']) }}</td>
+        <td>{{ $data['diskon_persen']."% (".rupiah($data['diskon']).")" }}</td>
         <td>{{ $data['satuan'] }}</td>
         <td>{{ $data['berat'] }} gr</td>
         <td>{{ $data['deskripsi'] }}</td>
@@ -34,7 +41,10 @@
         </td>
       </tr>
     @endforeach
+    </tbody>
   </table>
+  </div>
+  </div>
   
   <script>
     var data = <?=json_encode($data_list)?>;
@@ -51,6 +61,7 @@
       elName("satuan")[0].value = "";
       elName("deskripsi")[0].value = "";
       elName("berat")[0].value = "";
+      elName("diskon")[0].value = "";
       elId("gambar").innerHTML = "";
     }
     
@@ -81,6 +92,7 @@
       elName("satuan")[0].value = detail.satuan;
       elName("berat")[0].value = detail.berat;
       elName("deskripsi")[0].value = detail.deskripsi;
+      elName("diskon")[0].value = detail.diskon;
       if(detail.gambar != "")
       {
         elId("gambar").innerHTML = "<small>*Upload gambar baru untuk mengganti gambar lama.</small> <br> <img src='{{ base_url().'assets/img/' }}" + detail.gambar + "' width='300' height='300' />"
@@ -107,6 +119,8 @@
             @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'stok', 'class' => 'form-control', 'label' => 'Stok']])
 
             @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'harga', 'class' => 'form-control', 'label' => 'Harga']])
+            
+            @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'diskon', 'class' => 'form-control', 'label' => 'Diskon (persen)']])
 
             @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'satuan', 'class' => 'form-control', 'max' =>50, 'label' => 'Satuan']])
             

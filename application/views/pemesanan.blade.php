@@ -7,10 +7,13 @@
     <?=alertBootstrap("Pesan!", "Harap lakukan pembayaran segera agar pemesanan yang dilakukan bisa segera diproses oleh pihak Radja Solok", "warning")?>
   <?php endif; ?>
   
+  <div class="table-responsive">
+    <div style="overflow:auto; max-height:650px; margin:0px 0 0px 0;">
   <table class="table table-bordered table-stripped">
+  	<thead>
     <tr>
       <th>No</th>
-      <th>ID Pesan</th>
+      <th>No Invoice</th>
       @if($_SESSION['akses_level'] == "Admin")
       <th>Nama</th>
       @endif
@@ -21,10 +24,12 @@
       <th>Nomor resi</th>
       <th>Aksi</th>
     </tr>
+    </thead>
+    <tbody>
     @foreach($data_list as $nomor => $data)
       <tr>
         <td>{{ ($nomor+1) }}</td>
-        <td>{{ $data['id'] }}</td>
+        <td>INV/{{ $data['id']."/".$data['id_user']."/".str_replace("-","", $data['tgl_pesan']) }}</td>
         @if($_SESSION['akses_level'] == "Admin")
         <td>{{ $data['nama'] }}</td>
         @endif
@@ -62,7 +67,10 @@
         </td>
       </tr>
     @endforeach
+    </tbody>
   </table>
+  </div>
+  </div>
   
   @include('modal-konfirmasi-pembayaran')
   @include('modal-verifikasi-pembayaran')

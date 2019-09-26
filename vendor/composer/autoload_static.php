@@ -11,6 +11,7 @@ class ComposerStaticInit69d33cf963f95cddb6e7b2e04dabf35b
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'e1aaed1027c0eb28b218ac55e1d9af62' => __DIR__ . '/..' . '/idexx/crypto-guard/src/Support/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -67,6 +68,7 @@ class ComposerStaticInit69d33cf963f95cddb6e7b2e04dabf35b
         ),
         'C' => 
         array (
+            'Coreproc\\CryptoGuard\\' => 21,
             'Carbon\\' => 7,
         ),
     );
@@ -181,6 +183,10 @@ class ComposerStaticInit69d33cf963f95cddb6e7b2e04dabf35b
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Coreproc\\CryptoGuard\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/idexx/crypto-guard/src',
         ),
         'Carbon\\' => 
         array (

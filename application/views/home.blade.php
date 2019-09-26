@@ -42,7 +42,13 @@
           </a>
           <div class="text">
             <h3><a href="{{ site_url('kopi/detail/'.$data['id']) }}">{{ $data['nama'] }}</a></h3>
-            <p class="price">{{ rupiah($data['harga']) }}</p>
+            <p class="price">
+            	@if($data['diskon'] != 0)
+              		{!! "<del>".rupiah($data['harga'])."</del>, ".rupiah(($data['harga'] - $data['diskon'])) !!}
+              	@else
+              		{!! rupiah($data['harga']) !!}
+              	@endif
+            </p>
           </div>
         </div>
       </div>

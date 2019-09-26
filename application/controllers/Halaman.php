@@ -2,6 +2,8 @@
 session_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Coreproc\CryptoGuard\CryptoGuard;
+
 class Halaman extends MY_Controller {
   public function __construct()
   {
@@ -185,5 +187,99 @@ class Halaman extends MY_Controller {
     }
     
     echo json_encode($result, JSON_PRETTY_PRINT);
+  }
+  
+  public function lupaPassword(){
+  	$email = $this->input->post("email");
+  	$data_user = $this->user->ambilDataDenganKondisi(["email" => $email]);
+  	
+  	if(count($data_user) == 1)
+  	{
+  		$waktu = date("Y-m-d H:i:s");
+  		$waktu = date('Y-m-d H:i:s', strtotime("+1 hours", strtotime($waktu)));
+  		
+  		$cryptoGuard = new CryptoGuard(base_url().site_url());
+
+			$token = $cryptoGuard->encrypt($waktu." ".$email);
+
+			// echo $cryptoGuard->decrypt($token);
+
+       //kode untuk mengirim email
+    	$from = "noreply@solok-radjo.dafma.id";
+    	$to = $email;
+    	$subject = "Reset Password Akun Solok Radjo";
+    	$message = "Silahkan klik atau akses URL BERIKUT ".site_url('reset-password?token='.$token)." untuk melakukan reset password akun website Solok Radjo. Link tersebut hanya berlaku 1 jam.";
+    	$headers = "From:" . $from;
+    	mail($to,$subject,$message, $headers);
+    	
+    	
+  		notifikasi("Berhasil", "Silahkan cek email Anda untuk petunjuk cara mereset password", "success");
+  	}
+  	else
+  	{
+  		notifikasi("Peringatan", "Email yang Anda masukkan belum terdaftar", "danger");
+  	}
+  	header('Location: '.site_url('/'));
+  }
+  
+  public function resetPassword()
+  {
+  	if(empty($this->input->get("token")))
+  	{
+  		notifikasi("Peringatan", "Anda tidak berhak mengakses halaman ini!", "danger");
+  	}
+  	else
+  	{ 
+  		$token = $this->input->get("token");
+	  	$cryptoGuard = new CryptoGuard(base_url().site_url());
+			$hasil_token = $cryptoGuard->decrypt($token);
+			$hasil_token = explode(" ", $hasil_token);
+			$email = $hasil_token[2];
+			$waktu = $hasil_token[0]." ".$hasil_token[1];
+			$waktu_sekarang = date("Y-m-d H:i:s");
+			$selisih_waktu = selisihWaktu($waktu, $waktu_sekarang);
+			if($selisih_waktu['hari'] == 0 && $selisih_waktu['jam'] == 0)
+			{
+				$this->_dts['token'] = $token;
+				$this->view("reset-password", $this->_dts);	
+			}
+			else
+			{
+				notifikasi("Peringatan", "Anda tidak berhak mengakses halaman ini!", "danger");	
+				header('Location: '.site_url('/'));
+			}
+  	}
+  	
+  }
+  
+  public function prosesResetPassword()
+  {
+  	if(empty($this->input->post("token")))
+  	{
+  		notifikasi("Peringatan", "Anda tidak berhak mengakses halaman ini!", "danger");
+  	}
+  	else
+  	{
+  		$token = $this->input->post("token");
+	  	$cryptoGuard = new CryptoGuard(base_url().site_url());
+			$hasil_token = $cryptoGuard->decrypt($token);
+			$hasil_token = explode(" ", $hasil_token);
+			$email = $hasil_token[2];
+			$waktu = $hasil_token[0]." ".$hasil_token[1];
+			$waktu_sekarang = date("Y-m-d H:i:s");
+			$selisih_waktu = selisihWaktu($waktu, $waktu_sekarang);
+			
+			if($selisih_waktu['hari'] == 0 && $selisih_waktu['jam'] == 0)
+			{
+				$pass = $this->input->post("password");
+				$this->user->resetPassword($email, $pass);
+				notifikasi("Berhasil", "Password berhasil direset!", "success");	
+			}
+			else
+			{
+				notifikasi("Peringatan", "Anda tidak berhak mengakses halaman ini!", "danger");	
+			}
+  	}
+  	header('Location: '.site_url('/'));
   }
 }

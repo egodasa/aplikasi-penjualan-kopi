@@ -35,6 +35,7 @@
     <link href="{{ base_url() }}assets/css/pnotify/pnotify.css" rel="stylesheet">
     <link href="{{ base_url() }}assets/css/pnotify/pnotify.buttons.css" rel="stylesheet">
     <link href="{{ base_url() }}assets/css/pnotify/pnotify.nonblock.css" rel="stylesheet">
-
+    <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    
 
 </head>

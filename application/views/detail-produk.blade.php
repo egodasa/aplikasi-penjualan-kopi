@@ -19,7 +19,13 @@
             <tr>
               <td><h4>Harga</h4></td>
               <td>:</td>
-              <td>{{ rupiah($detail_kopi['harga']) }}</td>
+              <td>
+              	@if($detail_kopi['diskon'] != 0)
+              		{!! "<del>".rupiah($detail_kopi['harga'])."</del>, ".rupiah(($detail_kopi['harga'] - $detail_kopi['diskon'])) !!}
+              	@else
+              		{{ rupiah($detail_kopi['harga']) }}
+              	@endif
+              </td>
             </tr>
             <tr>
               <td><h4>Deskripsi</h4></td>
@@ -43,6 +49,7 @@
                   <form method="POST">
                     <input type="hidden" name="id_kopi" value="{{ $detail_kopi['id'] }}">
                     <input type="hidden" name="id_user" value="{{ $_SESSION['id'] }}">
+                    <input type="hidden" name="diskon" value="{{ $detail_kopi['diskon'] }}">
                     <div class="input-group">
                       <input type="number" max="{{ $detail_kopi['stok'] }}" name="jumlah" placeholder="Jumlah Pesan" class="form-control" />
                       <div class="input-group-btn">

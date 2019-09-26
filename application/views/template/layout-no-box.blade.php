@@ -25,7 +25,7 @@
     <script src="{{ base_url() }}assets/js/pnotify/pnotify.buttons.js"></script>
     <script src="{{ base_url() }}assets/js/pnotify/pnotify.nonblock.js"></script>
     <script>
-      $('.table').DataTable();
+    	$('.table').DataTable();
       function elId(id)
       {
         return document.getElementById(id);
@@ -93,6 +93,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Login</button>
+          <button type="button" class="btn btn-danger" onclick="hideModal('#modal-login'); showModal('#lupa-password');">Lupa Password</button>
         </div>
         </form>
       </div>
@@ -122,5 +123,11 @@
       </div>
     </div>
   </div>
+  @include('template.lupa-password')
+  <script>
+  	$(document).ready( function () {
+		    $('.table').DataTable();
+		});
+  </script>
 	</body>
 </html>

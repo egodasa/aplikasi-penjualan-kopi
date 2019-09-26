@@ -3,21 +3,25 @@
   <h3>Data Kategori</h3>
 	<button type="button" onclick="showModalTambah()" class="btn btn-primary">Tambah Data</button>
   <table class="table table-bordered table-stripped">
-    <tr>
-      <th>No</th>
-      <th>NAMA KATEGORI</th>
-      <th>Aksi</th>
-    </tr>
-    @foreach($data_list as $nomor => $data)
-      <tr>
-        <td>{{ ($nomor+1) }}</td>
-        <td>{{ $data['nama_kategori'] }}</td>
-        <td>
-          <button type="button" onclick="showModalEdit({{ $nomor }})" class="btn btn-success">Edit</button>
-          <button type="button" onclick="showConfirmationDelete('<?=site_url("kategori/hapus?id=".$data['id'])?>')" class="btn btn-danger">Hapus</button>
-        </td>
-      </tr>
-    @endforeach
+  	<thead>
+	    <tr>
+	      <th>No</th>
+	      <th>NAMA KATEGORI</th>
+	      <th>Aksi</th>
+	    </tr>
+    </thead>
+    <tbody>
+	    @foreach($data_list as $nomor => $data)
+	      <tr>
+	        <td>{{ ($nomor+1) }}</td>
+	        <td>{{ $data['nama_kategori'] }}</td>
+	        <td>
+	          <button type="button" onclick="showModalEdit({{ $nomor }})" class="btn btn-success">Edit</button>
+	          <button type="button" onclick="showConfirmationDelete('<?=site_url("kategori/hapus?id=".$data['id'])?>')" class="btn btn-danger">Hapus</button>
+	        </td>
+	      </tr>
+	    @endforeach
+    </tbody>
   </table>
   
   <script>

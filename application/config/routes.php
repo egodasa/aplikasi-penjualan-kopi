@@ -58,6 +58,12 @@ $route['pengguna/tambah']['POST'] = 'KelolaPengguna/prosesTambah';  // Proses Ta
 $route['pengguna/edit']['POST'] = 'KelolaPengguna/prosesEdit';             // Proses Edit Data
 $route['pengguna/hapus']['GET'] = 'KelolaPengguna/prosesHapus';     // Hapus Data
 
+$route['penerimaan']['GET'] = 'KelolaPenerimaan/daftar';                // Lihat Data
+$route['penerimaan/tambah']['POST'] = 'KelolaPenerimaan/prosesTambah';  // Proses Tambah Data
+$route['penerimaan/edit']['POST'] = 'KelolaPenerimaan/prosesEdit';             // Proses Edit Data
+$route['penerimaan/hapus']['GET'] = 'KelolaPenerimaan/prosesHapus';     // Hapus Data
+$route['penerimaan/detail/faktur/(:num)']['GET'] = 'KelolaPenerimaan/cetakFaktur/$1';
+
 $route['kopi']['GET'] = 'KelolaKopi/daftar';                // Lihat Data
 $route['kopi/tambah']['POST'] = 'KelolaKopi/prosesTambah';  // Proses Tambah Data
 $route['kopi/edit']['POST'] = 'KelolaKopi/prosesEdit';             // Proses Edit Data
@@ -100,6 +106,10 @@ $route['cetak-laporan-pemesanan']['GET'] = 'KelolaPemesanan/cetakLaporanPemesana
 $route['login']['POST'] = 'Halaman/prosesLogin'; 
 $route['registrasi']['POST'] = 'Halaman/prosesRegister'; 
 $route['logout']['GET'] = 'Halaman/prosesLogout'; 
+
+$route['lupa-password']['POST'] = 'Halaman/lupaPassword'; 
+$route['reset-password']['GET'] = 'Halaman/resetPassword'; 
+$route['reset-password']['POST'] = 'Halaman/prosesResetPassword'; 
 
 $route['kota']['GET'] = 'Halaman/getKota'; 
 $route['provinsi']['GET'] = 'Halaman/getProvinsi'; 

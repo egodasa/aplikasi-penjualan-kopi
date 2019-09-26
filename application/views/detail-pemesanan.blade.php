@@ -3,8 +3,8 @@
   <a href="{{ site_url('pemesanan') }}" class="btn btn-primary">< Kembali</a>
   <h3>Detail Pemesanan</h3>
   <div class="row">
-    <div class="col-xs-12 col-sm-3">ID Pemesanan</div>
-    <div class="col-xs-12 col-sm-3">{{ $data_pemesanan['id'] }}</div>
+    <div class="col-xs-12 col-sm-3">No Invoice</div>
+    <div class="col-xs-12 col-sm-3">INV/{{ $data_pemesanan['id']."/".$data_pemesanan['id_user']."/".str_replace("-","", $data_pemesanan['tgl_pesan']) }}</div>
     <div class="col-xs-12 col-sm-3">Nama Pemesan</div>
     <div class="col-xs-12 col-sm-3">{{ $data_pemesanan['nama'] }}</div>
     
@@ -29,8 +29,8 @@
     <div class="col-xs-12 col-sm-3">Total Bayar</div>
     <div class="col-xs-12 col-sm-3">{{ rupiah($data_pemesanan['total_bayar']) }}</div>
     
-    <div class="col-xs-12">Alamat Tujuan</div>
-    <div class="col-xs-12 col-sm-3">{{ $data_pemesanan['alamat'] }}</div>
+    <div class="col-xs-12 col-sm-3">Alamat Tujuan</div>
+    <div class="col-xs-12 col-sm-9">{{ $data_pemesanan['alamat'] }}</div>
     
     
   </div>
@@ -47,14 +47,14 @@
       <th>Sub Total</th>
     </tr>
     <?php foreach($data_list as $nomor => $data): ?>
-      <?php $total+= $data['harga']*$data['jumlah'] ?>
+      <?php $total+= $data['sub_total'] ?>
       <tr>
         <td><?= ($nomor+1) ?></td>
         <td><?= $data['nama'] ?></td>
         <td><img src="<?= base_url('assets/img/'.$data['gambar']) ?>" width="300" height="300" /></td>
-        <td><?= rupiah($data['harga']) ?></td>
+        <td><?= rupiah($data['harga']-$data['diskon']) ?></td>
         <td><?= $data['jumlah'] ?></td>
-        <td><?= rupiah(($data['harga']*$data['jumlah'])) ?></td>
+        <td><?= rupiah(($data['sub_total'])) ?></td>
       </tr>
     <?php endforeach; ?>
     <tr>

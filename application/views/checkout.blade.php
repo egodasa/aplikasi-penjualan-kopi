@@ -18,7 +18,7 @@
             <?php $total = 0; ?>
             <?php $total_berat = 0; ?>
             <?php foreach($data_list as $nomor => $data): ?>
-              <?php $total+= $data['jumlah'] * $data['harga']; ?>
+              <?php $total+= $data['sub_total']; ?>
               <?php $total_berat += $data['berat'] * $data['jumlah']; ?>
               <tr>
                 <td><a href="<?= site_url('kopi/detail/'.$data['id_kopi']) ?>"><img src="<?= base_url('assets/img/'.$data['gambar']) ?>" width="100" alt="White Blouse Armani"></a></td>
@@ -26,9 +26,15 @@
                 <td>
                     <?= $data['jumlah'] ?>
                 </td>
-                <td><?= rupiah($data['harga']) ?></td>
+                <td>
+                	@if($data['diskon'] != 0)
+	              		{!! "<del>".rupiah($data['harga'])."</del>, ".rupiah(($data['harga'] - $data['diskon'])) !!}
+	              	@else
+	              		{!! rupiah($data['harga']) !!}
+	              	@endif
+	              </td>
                 <td><?= ($data['berat']*$data['jumlah']); ?></td>
-                <td colspan="2"><?= rupiah(($data['harga'] * $data['jumlah'])) ?></td>
+                <td colspan="2"><?= rupiah($data['sub_total']) ?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>

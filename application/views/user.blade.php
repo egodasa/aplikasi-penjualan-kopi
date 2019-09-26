@@ -3,6 +3,7 @@
   <h3>Data user</h3>
   <button type="button" onclick="showModalTambah()" class="btn btn-primary">Tambah Data</button>
   <table class="table table-bordered table-stripped">
+  	<thead>
     <tr>
       <th>No</th>
       <th>Nama</th>
@@ -12,6 +13,8 @@
       <th>Level</th>
       <th>Aksi</th>
     </tr>
+    </thead>
+    <tbody>
     @foreach($data_list as $nomor => $data)
       <tr>
         <td>{{ ($nomor+1) }}</td>
@@ -26,6 +29,7 @@
         </td>
       </tr>
     @endforeach
+    </tbody>
   </table>
   
   <script>
@@ -95,7 +99,7 @@
 
             @include('components.form.input', ['_data' => ['type' => 'password', 'name' => 'password', 'class' => 'form-control', 'max' => 50, 'label' => 'Password']])
 
-            @include('components.form.select', ['_data' => ['name' => 'akses_level', 'class' => 'form-control', 'label' => 'level user', 'val' => 'val', 'caption' => 'val', 'options' => [['val' => 'Admin'], ['val' => 'Member'], ['val' => 'Ketua Koperasi']]]])
+            @include('components.form.select', ['_data' => ['name' => 'akses_level', 'class' => 'form-control', 'label' => 'level user', 'val' => 'val', 'caption' => 'val', 'options' => [['val' => 'Admin'], ['val' => 'Member'], ['val' => 'Ketua Koperasi'], ['val' => 'Petugas Gudang']]]])
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" onclick="closeModal()">Tutup</button>

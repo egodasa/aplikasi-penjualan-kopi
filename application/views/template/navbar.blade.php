@@ -37,6 +37,8 @@
                         @elseif($_SESSION['akses_level'] == "Ketua Koperasi")
                           <li class="dropdown-item"><a href="{{ site_url('laporan-kopi') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Kopi</a></li>
                           <li class="dropdown-item"><a href="{{ site_url('laporan-pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Laporan Penjualan</a></li>
+                        @elseif($_SESSION['akses_level'] == "Petugas Gudang")
+                          <li class="dropdown-item"><a href="{{ site_url('penerimaan') }}" class="nav-link"><i class="fa fa-list"></i> Penerimaan Stok</a></li>
                         @else
                           <li class="dropdown-item"><a href="{{ site_url('pemesanan') }}" class="nav-link"><i class="fa fa-list"></i> Data Pemesanan</a></li>
                         @endif

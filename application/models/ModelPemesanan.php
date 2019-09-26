@@ -7,7 +7,7 @@ class ModelPemesanan extends MY_Model {
     parent::__construct();
     $this->tabel = "pemesanan";
     $this->primaryKey = "id";
-    $this->kolomBawaanCrud = ["id_user","tgl_pesan","nama_ekspedisi","total_ongkir","status","noresi"];
+    $this->kolomBawaanCrud = ["id_user","tgl_pesan","nama_ekspedisi","total_ongkir","status","noresi", "alamat"];
     $this->view = "data_pemesanan";
   }
   public function laporanPenjualan()

@@ -16,7 +16,7 @@
           <tbody>
             <?php $total = 0; ?>
             <?php foreach($data_list as $nomor => $data): ?>
-              <?php $total+= $data['jumlah'] * $data['harga']; ?>
+              <?php $total+= $data['sub_total']; ?>
               <tr>
                 <td><a href="#"><img src="<?= base_url('assets/img/'.$data['gambar']) ?>" width="100"></a></td>
                 <td><a href="#"><?= $data['nama'] ?></a></td>
@@ -24,8 +24,14 @@
                     <input type="hidden" name="id[]" value="<?= $data['id'] ?>" >
                     <input type="number" value="<?= $data['jumlah'] ?>" name="jumlah[]" class="form-control" />
                 </td>
-                <td><?= rupiah($data['harga']) ?></td>
-                <td><?= rupiah(($data['harga'] * $data['jumlah'])) ?></td>
+                <td>
+                	@if($data['diskon'] != 0)
+	              		{!! "<del>".rupiah($data['harga'])."</del>, ".rupiah(($data['harga'] - $data['diskon'])) !!}
+	              	@else
+	              		{!! rupiah($data['harga']) !!}
+	              	@endif
+	              </td>
+                <td><?= rupiah($data['sub_total']) ?></td>
                 <td><a href="<?= site_url('keranjang/hapus/'.$data['id']) ?>"><i class="fa fa-trash-o"></i></a></td>
               </tr>
             <?php endforeach; ?>
