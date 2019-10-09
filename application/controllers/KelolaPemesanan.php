@@ -94,25 +94,25 @@ class KelolaPemesanan extends MY_Controller {
   }
   public function cetakLaporanPemesanan()
   {
-    $kondisi = "WHERE status IN ('Pembayaran diterima','Sudah dikirim') AND ";
     $parameter_kondisi = [];
     
     $data = $this->input->get(NULL,  true);
     $judul = "";
+    $parameter_kondisi = [];
     switch($data['jenis'])
     {
       case "harian":
-        $judul = "Laporan Penjualan Harian <br> Tanggal ".TanggalIndo($data['tgl_pesan']);
-        $kondisi .= "DATE(tgl_pesan) = DATE(:tgl_pesan)";
+        $judul = "Tanggal ".TanggalIndo($data['tgl_pesan']);
+        $kondisi .= " DATE(tgl_pesan) = DATE(:tgl_pesan)";
         $parameter_kondisi[':tgl_pesan'] = $data['tgl_pesan'];
       break;
       case "bulanan":
-        $judul = "Laporan Penjualan Bulanan <br> Bulan ".tanggal_indo_bulan_tahun($data['tgl_pesan']);
-        $kondisi .= "LEFT(tgl_pesan, 7) = LEFT(:tgl_pesan, 7)";
+        $judul = "Bulan ".tanggal_indo_bulan_tahun($data['tgl_pesan']);
+        $kondisi .= " LEFT(tgl_pesan, 7) = LEFT(:tgl_pesan, 7)";
         $parameter_kondisi[':tgl_pesan'] = $data['tgl_pesan'];
       break;
       case "tahunan":
-        $judul = "Laporan Penjualan Tahunan <br> Tahun ".substr($data['tgl_pesan'], 0, 4);
+        $judul = "Tahun ".substr($data['tgl_pesan'], 0, 4);
         $kondisi .= " LEFT(tgl_pesan, 4) = LEFT(:tgl_pesan, 4)";
         $parameter_kondisi[':tgl_pesan'] = $data['tgl_pesan'];
       break;
@@ -123,8 +123,10 @@ class KelolaPemesanan extends MY_Controller {
         $parameter_kondisi[':tgl_pesan_akhir'] = $data['tgl_pesan_akhir'];
       break;
     }
+    
+    $kondisi.= " AND status IN ('Pembayaran diterima','Sudah dikirim')";
     $this->_dts['judul'] = $judul;
-    $this->_dts['data_list'] = $this->pemesanan->ambilDataDenganKOndisi(Medoo::raw($kondisi, $parameter_kondisi));
+    $this->_dts['data_list'] = $this->pemesanan->laporanPenjualan($kondisi, $parameter_kondisi);
     
     $this->view("cetak-laporan-pemesanan", $this->_dts);
   }

@@ -56,7 +56,9 @@ INSERT INTO `detail_pesan` (`id`, `id_pesan`, `id_kopi`, `jumlah`, `diskon`) VAL
 (19,	14,	3,	2,	3625),
 (20,	15,	3,	5,	3625),
 (21,	16,	3,	1,	3625),
-(22,	16,	3,	6,	3625);
+(22,	16,	3,	6,	3625),
+(24,	17,	4,	2,	0),
+(25,	18,	3,	1,	3625);
 
 DELIMITER ;;
 
@@ -90,7 +92,8 @@ CREATE TABLE `keranjang` (
 INSERT INTO `keranjang` (`id`, `id_kopi`, `id_user`, `jumlah`, `diskon`) VALUES
 (4,	3,	2,	1,	0),
 (5,	4,	2,	1,	0),
-(8,	5,	5,	0,	0);
+(8,	5,	5,	0,	0),
+(17,	3,	4,	5,	3625);
 
 DROP TABLE IF EXISTS `kopi`;
 CREATE TABLE `kopi` (
@@ -109,9 +112,15 @@ CREATE TABLE `kopi` (
 
 INSERT INTO `kopi` (`id`, `id_kategori`, `nama`, `gambar`, `stok`, `harga`, `satuan`, `deskripsi`, `berat`, `diskon`) VALUES
 (2,	3,	'Qui qui cumque sunt ',	'200819091046111800.png',	0,	3,	'Voluptatibus dolorib',	'Rerum omnis perspici',	300,	0),
-(3,	1,	'Labah Rimbo',	'240819072647432600.jpg',	283,	145000,	'kg',	'Berasal dari Solok Desa Aie Dingin dan Aka Gadang, Solok. merupakan\r\nVarietas  Kartika, Andung sari, Ateng dan Sigararutang \r\n',	100,	2.5),
-(4,	2,	'Limau Cirago',	'240819075333611300.jpg',	604,	150000,	'kg',	'Berasal dari Desa: Bukit Barisan merupakan Varietas  Kartika, Andung sari, dan Sigararutang\r\n\r\n',	100,	0),
-(5,	4,	'Solok Radjo Natural',	'240819075625439600.jpg',	400,	150000,	'kg',	'Berasal  dari Solok Desa Aie Dingin dengan Varietas Kartika, Andung sari, dan Sigararutang\r\n',	100,	0);
+(3,	1,	'Labah Rimbo',	'240819072647432600.jpg',	282,	145000,	'kg',	'Berasal dari Solok Desa Aie Dingin dan Aka Gadang, Solok. merupakan\r\nVarietas  Kartika, Andung sari, Ateng dan Sigararutang \r\n',	100,	2.5),
+(4,	2,	'Limau Cirago',	'240819075333611300.jpg',	602,	150000,	'kg',	'Berasal dari Desa: Bukit Barisan merupakan Varietas  Kartika, Andung sari, dan Sigararutang\r\n\r\n',	100,	0),
+(5,	4,	'Solok Radjo Natural',	'240819075625439600.jpg',	400,	150000,	'kg',	'Berasal  dari Solok Desa Aie Dingin dengan Varietas Kartika, Andung sari, dan Sigararutang\r\n',	100,	0),
+(6,	1,	'Labah Rimbo new',	'031019230418724700.jpg',	5,	90000,	'kg',	'berasal dari solok desa aie dingin',	1000,	0),
+(7,	4,	'Solok Radjo Natural new',	'031019230753195300.jpg',	5,	90000,	'kg',	'berasal dari desa aie dingin',	100,	0);
+
+DROP VIEW IF EXISTS `laporan_penjualan`;
+CREATE TABLE `laporan_penjualan` (`status` enum('Belum bayar','Sedang diverifikasi','Pembayaran diterima','Pembayaran ditolak','Sudah dikirim'), `jumlah` int(11), `nama_kopi` varchar(50), `total_ongkir` int(11), `sub_total` bigint(22), `tgl_pesan` date, `nama_ekspedisi` varchar(50), `nama_pelanggan` varchar(50));
+
 
 DROP TABLE IF EXISTS `pembayaran`;
 CREATE TABLE `pembayaran` (
@@ -137,7 +146,10 @@ INSERT INTO `pembayaran` (`id`, `id_pesan`, `jumlah_bayar`, `nama_bank`, `norek`
 (6,	5,	222,	'bni',	'1233',	'2019-08-26 00:00:00',	'Belum Diperiksa',	'bni',	'123344',	'260819024806937500.jpg'),
 (7,	8,	161000,	'bni',	'1223455',	'0000-00-00 00:00:00',	'Belum Diperiksa',	'bni',	'122786892',	'260819030751354400.jpg'),
 (8,	11,	356000,	'Bni',	'1236594',	'2019-09-25 00:00:00',	'Belum Diperiksa',	'Bni',	'5164994',	'250919020903049300.pdf'),
-(9,	16,	0,	'',	'',	'0000-00-00 00:00:00',	'Belum Diperiksa',	'',	'',	'260919142941803600.jpg');
+(9,	16,	0,	'',	'',	'0000-00-00 00:00:00',	'Belum Diperiksa',	'',	'',	'260919142941803600.jpg'),
+(10,	17,	0,	'',	'',	'0000-00-00 00:00:00',	'Belum Diperiksa',	'',	'',	'081019042951746600.'),
+(11,	17,	0,	'',	'',	'0000-00-00 00:00:00',	'Belum Diperiksa',	'',	'',	'081019043232954700.jpg'),
+(12,	18,	0,	'',	'',	'0000-00-00 00:00:00',	'Belum Diperiksa',	'',	'',	'081019053206509300.jpg');
 
 DROP TABLE IF EXISTS `pemesanan`;
 CREATE TABLE `pemesanan` (
@@ -153,15 +165,13 @@ CREATE TABLE `pemesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `pemesanan` (`id`, `id_user`, `tgl_pesan`, `nama_ekspedisi`, `total_ongkir`, `status`, `noresi`, `alamat`) VALUES
-(1,	3,	'2019-08-20 00:00:00',	'',	0,	'Sudah dikirim',	'hkjkl',	''),
 (2,	3,	'2019-08-22 00:00:00',	'',	0,	'Sudah dikirim',	'12dq2dww',	''),
 (8,	4,	'2019-08-26 00:00:00',	'JNE REG',	11000,	'Sudah dikirim',	'hkjkl',	''),
 (9,	3,	'2019-08-27 00:00:00',	'JNE OKE',	80000,	'Belum bayar',	'',	''),
 (10,	4,	'2019-09-02 00:00:00',	'JNE REG',	11000,	'Belum bayar',	'',	''),
 (11,	4,	'2019-09-25 00:00:00',	'JNE OKE',	33000,	'Pembayaran ditolak',	'',	''),
-(12,	4,	'2019-09-25 00:00:00',	'JNE OKE',	57000,	'Belum bayar',	'',	''),
-(13,	4,	'2019-09-25 00:00:00',	'JNE OKE',	40000,	'Belum bayar',	'',	'sdffddsfdsffdssdfd'),
-(16,	4,	'2019-09-26 00:00:00',	'JNE YES',	10000,	'Sedang diverifikasi',	'',	'solok');
+(17,	11,	'2019-10-08 00:00:00',	'JNE REG',	11000,	'Sudah dikirim',	'267319735793404',	'solok'),
+(18,	11,	'2019-10-08 00:00:00',	'JNE REG',	11000,	'Sedang diverifikasi',	'',	'padang');
 
 DROP TABLE IF EXISTS `penerimaan_stok`;
 CREATE TABLE `penerimaan_stok` (
@@ -210,7 +220,8 @@ INSERT INTO `users` (`id`, `nama`, `email`, `telepon`, `username`, `password`, `
 (7,	'Dolorem ab quam labo',	'pylewy@mailinator.com',	'Cupiditate adipisci ',	'pakido',	'12345',	'Member'),
 (8,	'Et aliquid nostrud e',	'cugujemer@mailinator.com',	'Proident facere eiu',	'ketua',	'12345',	'Ketua Koperasi'),
 (9,	'Teuku',	'teuku@gmail.com',	'083182397272',	'Ketua',	'ketua',	'Ketua Koperasi'),
-(10,	'Adi',	'adi@gmail.com',	'0821566497',	'Gudang',	'gudang',	'Petugas Gudang');
+(10,	'Adi',	'adi@gmail.com',	'0821566497',	'Gudang',	'gudang',	'Petugas Gudang'),
+(11,	'budi',	'bud@gmail.com',	'0831523456',	'budi',	'budi',	'Member');
 
 DROP TABLE IF EXISTS `data_detail_pesan`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_detail_pesan` AS select `detail_pesan`.`id` AS `id`,`detail_pesan`.`id_pesan` AS `id_pesan`,`detail_pesan`.`id_kopi` AS `id_kopi`,`detail_pesan`.`jumlah` AS `jumlah`,`kopi`.`nama` AS `nama`,`kopi`.`gambar` AS `gambar`,`kopi`.`stok` AS `stok`,`kopi`.`harga` AS `harga`,`detail_pesan`.`diskon` AS `diskon`,`kopi`.`satuan` AS `satuan`,`kopi`.`berat` AS `berat`,`kopi`.`deskripsi` AS `deskripsi`,`kategori`.`nama_kategori` AS `nama_kategori`,`pemesanan`.`tgl_pesan` AS `tgl_pesan`,`pemesanan`.`nama_ekspedisi` AS `nama_ekspedisi`,`pemesanan`.`total_ongkir` AS `total_ongkir`,`pemesanan`.`status` AS `status`,`pemesanan`.`noresi` AS `noresi`,(`detail_pesan`.`jumlah` * (`kopi`.`harga` - `detail_pesan`.`diskon`)) AS `sub_total` from (((`detail_pesan` join `kopi` on((`kopi`.`id` = `detail_pesan`.`id_kopi`))) join `kategori` on((`kategori`.`id` = `kopi`.`id_kategori`))) join `pemesanan` on((`detail_pesan`.`id_pesan` = `pemesanan`.`id`)));
@@ -227,4 +238,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_pemesanan` AS select 
 DROP TABLE IF EXISTS `data_penerimaan_stok`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `data_penerimaan_stok` AS select `a`.`id` AS `id`,`a`.`id_kopi` AS `id_kopi`,`a`.`id_user` AS `id_user`,`a`.`tgl_terima` AS `tgl_terima`,`a`.`jumlah` AS `jumlah`,`a`.`no_faktur` AS `no_faktur`,`a`.`keterangan` AS `keterangan`,`c`.`nama` AS `nama`,`b`.`nama` AS `nama_user` from ((`penerimaan_stok` `a` join `users` `b` on((`a`.`id_user` = `b`.`id`))) join `kopi` `c` on((`a`.`id_kopi` = `c`.`id`)));
 
--- 2019-09-26 16:45:27
+DROP TABLE IF EXISTS `laporan_penjualan`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `laporan_penjualan` AS select `data_detail_pesan`.`status` AS `status`,`data_detail_pesan`.`jumlah` AS `jumlah`,`data_detail_pesan`.`nama` AS `nama_kopi`,`data_detail_pesan`.`total_ongkir` AS `total_ongkir`,`data_detail_pesan`.`sub_total` AS `sub_total`,cast(`data_detail_pesan`.`tgl_pesan` as date) AS `tgl_pesan`,`data_detail_pesan`.`nama_ekspedisi` AS `nama_ekspedisi`,`users`.`nama` AS `nama_pelanggan` from ((`pemesanan` join `data_detail_pesan` on((`pemesanan`.`id` = `data_detail_pesan`.`id_pesan`))) join `users` on((`users`.`id` = `pemesanan`.`id_user`))) where (`pemesanan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak'));
+
+-- 2019-10-09 23:06:24

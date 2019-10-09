@@ -25,7 +25,7 @@
 <table align="center" style="width: 100%;text-align: center;">
       <tr>
         <td>
-          <img src="{{ base_url() }}assets/img/logo.png" width="300"/> <br>
+          <span style="font-size:20px">KOPERASI SERBA USAHA SOLOK RADJO</span></br><br>
           <span style="font-size:12px">Aie Dingin, Lembah Gumanti, Solok, Sumatera Barat 27371</span></br>
           <span style="font-size:12px">Email:solokradjo@gmail.com</span>
           <hr style="width: 700px; border-bottom: 3px solid black;">
