@@ -21,10 +21,9 @@
 </head>
 <body>
       <h2 align="center">
+      	LAPORAN PENJUALAN <br>
       	KOPERASI SERBA USAHA SOLOK RADJO <br>
-      	Aie Dingin, Lembah Gumanti, Solok, Sumatera Barat, 27371 <br> 
-      	Email:solokradjo@gmail.com <br> 
-      	LAPORAN PENJUALAN <?=$judul?>
+      	<?=$judul?>
       </h2>
       <table class="tabel_laporan">
       	<tr>
@@ -43,12 +42,10 @@
         	$jumlah = 0;
         	$ongkir = 0;
         	$total_bayar = 0;
-        	$harga = 0;
         	foreach($data_list as $nomor => $data):
         		$jumlah += $data['jumlah'];
-        		$harga += $data['sub_total'];
         		$ongkir += $data['total_ongkir'];
-        		$total_bayar += $data['sub_total'] + $data['total_ongkir'];
+        		$total_bayar += $data['sub_total'];
         ?>
           <tr>
             <td style="text-align: center;">{{ ($nomor+1) }}</td>
@@ -60,7 +57,7 @@
             <td>{{ rupiah($data['sub_total']) }}</td>
             <td>{{ $data['nama_ekspedisi'] }}</td>
             <td>{{ rupiah($data['total_ongkir']) }}</td>
-            <td>{{ rupiah(($data['sub_total'] + $data['total_ongkir'])) }}</td>
+            <td>{{ rupiah($data['sub_total']) }}</td>
           </tr>
         <?php
         	endforeach;
@@ -70,9 +67,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
             <td style="text-align: center;">{{ $jumlah }}</td>
-            <td style="text-align: center;">{{ rupiah($harga) }}</td>
             <td></td>
             <td>{{ rupiah($ongkir) }}</td>
             <td>{{ rupiah($total_bayar) }}</td>
