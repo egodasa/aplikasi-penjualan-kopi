@@ -30,51 +30,21 @@
       <table class="tabel_laporan">
       	<tr>
           <th style="text-align: center;">No</th>
-          <th>Nama Kopi</th>
-          <th>Januari</th>
-          <th>Februari</th>
-          <th>Maret</th>
-          <th>April</th>
-          <th>Mei</th>
-          <th>Juni</th>
-          <th>Juli</th>
-          <th>Agustus</th>
-          <th>September</th>
-          <th>Oktober</th>
-          <th>November</th>
-          <th>Desember</th>
+          <th>Bulan</th>
+          <th>Ongkos Kirim</th>
+          <th>Total Bayar</th>
         </tr>
         <?php
-        	$jumlah = [0,0,0,0,0,0,0,0,0,0,0,0];
+        	$jumlah = [0,0];
         	foreach($data_list as $nomor => $data):
-        		$jumlah[0] += $data['januari'];
-        		$jumlah[1] += $data['februari'];
-        		$jumlah[2] += $data['maret'];
-        		$jumlah[3] += $data['april'];
-        		$jumlah[4] += $data['mei'];
-        		$jumlah[5] += $data['juni'];
-        		$jumlah[6] += $data['juli'];
-        		$jumlah[7] += $data['agustus'];
-        		$jumlah[8] += $data['september'];
-        		$jumlah[9] += $data['oktober'];
-        		$jumlah[10] += $data['november'];
-        		$jumlah[11] += $data['desember'];
+        		$jumlah[0] += $data['total_ongkir'];
+        		$jumlah[1] += $data['sub_total'];
         ?>
           <tr>
             <td style="text-align: center;">{{ ($nomor+1) }}</td>
-            <td>{{ $data['nama'] }}</td>
-            <td>{{ rupiah($data['januari']) }}</td>
-            <td>{{ rupiah($data['februari']) }}</td>
-            <td>{{ rupiah($data['maret']) }}</td>
-            <td>{{ rupiah($data['april']) }}</td>
-            <td>{{ rupiah($data['mei']) }}</td>
-            <td>{{ rupiah($data['juni']) }}</td>
-            <td>{{ rupiah($data['juli']) }}</td>
-            <td>{{ rupiah($data['agustus']) }}</td>
-            <td>{{ rupiah($data['september']) }}</td>
-            <td>{{ rupiah($data['oktober']) }}</td>
-            <td>{{ rupiah($data['november']) }}</td>
-            <td>{{ rupiah($data['desember']) }}</td>
+            <td>{{ namaBulan($data['bulan']) }}</td>
+            <td>{{ rupiah($data['total_ongkir']) }}</td>
+            <td>{{ rupiah($data['sub_total']) }}</td>
           </tr>
         <?php
         	endforeach;
@@ -83,7 +53,7 @@
             <td>JUMLAH</td>
             <td></td>
             <?php
-            	for($x = 0; $x < 12; $x++)
+            	for($x = 0; $x < 2; $x++)
             	{
             ?>
             	<td><?=rupiah($jumlah[$x])?></td>
@@ -97,7 +67,7 @@
         <br>
         <table style="margin: 0 auto; width: 100%;">
           <tr>
-          	<td style="width: 10%;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+          	<td style="width: 70%;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
           	<td style="width: 30%;text-align: center;">
           		Solok, <?=TanggalIndo(date("Y-m-d"))?> <br>
 			      	Mengetahui  

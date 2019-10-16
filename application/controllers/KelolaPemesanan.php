@@ -119,58 +119,10 @@ class KelolaPemesanan extends MY_Controller {
         $judul = "Tahun ".substr($data['tgl_pesan'], 0, 4);
         $kondisi .= " LEFT(tgl_pesan, 4) = LEFT(:tgl_pesan, 4)";
         $parameter_kondisi[':tgl_pesan'] = $data['tgl_pesan'];
-        $this->_dts['data_list'] = $this->db->query("Select 
-																	kopi.nama,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-01'), 0) as januari, 
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-02'), 0) as februari,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-03'), 0) as maret,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-04'), 0) as april,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-05'), 0) as mei,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-06'), 0) as juni,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-07'), 0) as juli,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-08'), 0) as agustus,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-09'), 0) as september,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-10'), 0) as oktober,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-11'), 0) as november,
-																	IFNULL((SELECT SUM(data_detail_pesan.sub_total) 
-																	FROM data_detail_pesan WHERE data_detail_pesan.id_kopi = kopi.id and 
-																	`data_detail_pesan`.`status` not in ('Belum bayar','Sedang diverifikasi','Pembayaran ditolak') AND 
-																	LEFT(data_detail_pesan.tgl_pesan, 7) = '".$tahun."-22'), 0) as desember 
-																	From kopi 
-																	")->fetchAll(PDO::FETCH_ASSOC);
+        $this->_dts['data_list'] = $this->db->query("SELECT MONTH(a.tanggal) AS bulan, IFNULL(b.total_ongkir, 0) AS total_ongkir, IFNULL(b.sub_total, 0) AS sub_total FROM tb_waktu a LEFT JOIN 
+(SELECT MONTH(tgl_pesan) AS bulan,SUM(total_ongkir) AS total_ongkir, SUM(sub_total) AS sub_total FROM laporan_penjualan 
+WHERE YEAR(tgl_pesan) = '".$tahun."' GROUP BY LEFT(tgl_pesan, 7) 
+ORDER BY tgl_pesan) b ON MONTH(a.tanggal) = b.bulan WHERE year(a.tanggal) = '".$tahun."' GROUP BY LEFT(a.tanggal,7) ORDER BY a.tanggal;")->fetchAll(PDO::FETCH_ASSOC);
 																	$view = "cetak-laporan-pemesanan-tahunan";
       break;
       case "periode":

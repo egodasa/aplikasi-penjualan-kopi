@@ -83,7 +83,7 @@
         <br>
         <table style="margin: 0 auto; width: 100%;">
           <tr>
-          	<td style="width: 10%;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+          	<td style="width: 70%;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
           	<td style="width: 30%;text-align: center;">
           		Solok, <?=TanggalIndo(date("Y-m-d"))?> <br>
 			      	Mengetahui  
