@@ -23,8 +23,8 @@
       <h2 align="center">
       	KOPERASI SERBA USAHA SOLOK RADJO <br>
       	Aie Dingin, Lembah Gumanti, Solok, Sumatera Barat, 27371 <br> 
-      	Email:solokradjo@gmail.com <br> 
-      	LAPORAN PENJUALAN <?=$judul?>
+      	Email:solokradjo@gmail.com <br> <br>
+     LAPORAN PENJUALAN<br> <?=$judul?>
       </h2>
       <table class="tabel_laporan">
       	<tr>
