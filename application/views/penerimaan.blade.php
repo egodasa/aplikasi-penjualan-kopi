@@ -29,7 +29,7 @@
         <td>
           <!-- <button type="button" onclick="showModalEdit({{ $nomor }})" class="btn btn-success">Edit</button> -->
           <button type="button" onclick="showConfirmationDelete('<?=site_url("penerimaan/hapus?id=".$data['id'])?>')" class="btn btn-danger">Hapus</button>
-        	<a href="<?=site_url("penerimaan/detail/faktur/".$data['id'])?>" target="_blank" class="btn btn-success">Cetak Faktur</a>
+        	<a style="display: none;" href="<?=site_url("penerimaan/detail/faktur/".$data['id'])?>" target="_blank" class="btn btn-success">Cetak Faktur</a>
         </td>
       </tr>
     @endforeach

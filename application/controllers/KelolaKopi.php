@@ -50,7 +50,7 @@ class KelolaKopi extends MY_Controller {
     }
     
     $data_baru['gambar'] = $foto_baru;
-    
+
     $this->kopi->ubahData($this->input->post("id"), $data_baru);
     
     header("Location: ".site_url("kopi")); // Arahkan user kembali ke halaman daftar
