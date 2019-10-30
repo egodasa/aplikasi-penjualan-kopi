@@ -32,16 +32,21 @@
               <td>:</td>
               <td>{{ $detail_kopi['deskripsi'] }}</td>
             </tr>
-            <tr>
-              <td><h4>Stok</h4></td>
-              <td>:</td>
-              <td>{{ $detail_kopi['stok'] }}</td>
-            </tr>
             @if($detail_kopi['stok'] < 1)
+            	<tr>
+	              <td><h4>Stok</h4></td>
+	              <td>:</td>
+	              <td>0</td>
+	            </tr>
               <tr>
                 <td colspan="3"><h4>Maaf, stok sedang kosong</h4></td>
               </tr>
             @else
+            	<tr>
+	              <td><h4>Stok</h4></td>
+	              <td>:</td>
+	              <td>{{ $detail_kopi['stok'] }}</td>
+	            </tr>
               @if(isset($_SESSION['id']))
                 @if($_SESSION['akses_level'] == 'Member')
               <tr>

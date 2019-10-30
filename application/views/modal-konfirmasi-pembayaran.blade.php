@@ -14,8 +14,8 @@
         @include('components.form.input', ['_data' => ['type' => 'number', 'name' => 'jumlah_bayar', 'class' => 'form-control', 'label' => 'Jumlah Bayar']])
         @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'nama_bank', 'class' => 'form-control', 'label' => 'Nama Bank (Pembayar)']])
         @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'norek', 'class' => 'form-control', 'label' => 'Nomor Rekening (Pembayar)']])
-        @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'bank_tujuan', 'class' => 'form-control', 'label' => 'Bank Tujuan (Solok Radja)']])
-        @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'norek_tujuan', 'class' => 'form-control', 'label' => 'Nomor Rekening Tujuan (Solok Radja)']])
+        @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'bank_tujuan', 'class' => 'form-control', 'value' => 'BNI', 'label' => 'Bank Tujuan (Solok Radja)']])
+        @include('components.form.input', ['_data' => ['type' => 'text', 'name' => 'norek_tujuan', 'class' => 'form-control', 'value' => '0606841492', 'label' => 'Nomor Rekening Tujuan (Solok Radja)']])
         @include('components.form.input', ['_data' => ['type' => 'file', 'name' => 'bukti_bayar', 'class' => 'form-control', 'label' => 'Bukti Pembayaran']])
     </div>
     <div class="modal-footer">

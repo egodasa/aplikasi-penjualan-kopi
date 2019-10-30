@@ -4,7 +4,13 @@
   <?php if($_SESSION['akses_level'] == "Admin"): ?>
     <?=alertBootstrap("Pesan!", "Harap lakukan verifikasi pembayaran segera setelah pelanggan telah melakukan pembayaran", "warning")?>
   <?php else: ?>
-    <?=alertBootstrap("Pesan!", "Harap lakukan pembayaran segera agar pemesanan yang dilakukan bisa segera diproses oleh pihak Radja Solok", "warning")?>
+    <?=alertBootstrap("Pesan!", "Harap lakukan pembayaran segera agar pemesanan 
+    yang dilakukan bisa segera diproses oleh pihak Radja Solok. Pembayaran dapat dilakukan dengan melakukan transfer ke : <br>
+    <b>Bank BNI a/n 
+    KOPERASI SERBA USAHA SOLOK RADJA <br>
+    No Rekening : 0606841492
+    </b> <br>
+    ", "warning")?>
   <?php endif; ?>
   
   <div class="table-responsive">
